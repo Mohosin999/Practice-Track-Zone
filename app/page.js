@@ -1,12 +1,12 @@
 "use client";
 import React from "react";
-import LoginForm from "./components/login-form/LoginForm";
+import Button from "./components/button/Button";
 
 const Home = () => {
   return (
     <div>
       <h2>Root Page</h2>
-      <LoginForm />
+      <Button />
     </div>
   );
 };
