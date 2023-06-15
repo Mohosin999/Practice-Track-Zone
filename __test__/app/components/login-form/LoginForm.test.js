@@ -1,7 +1,7 @@
+import React from "react";
 import { render, screen } from "@testing-library/react";
-import "@testing-library/jest-dom/extend-expect";
-
-import LoginForm from "./LoginForm";
+import "@testing-library/jest-dom";
+import LoginForm from "../../../../app/components/login-form/LoginForm";
 
 describe("LoginForm", () => {
   it("should have an input for username or email with label", () => {
@@ -15,3 +15,4 @@ describe("LoginForm", () => {
     expect(inputElement).toBeInTheDocument();
   });
 });
+// test("test", () => {});
