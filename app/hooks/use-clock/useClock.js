@@ -28,7 +28,7 @@ const useClock = (timezone, offset) => {
         setLocalDate(newUtc);
       } else {
         const newUtc = addMinutes(utc, -localOffset); // Adjusting UTC based on the local offset (-360)
-        const dateStrArr = newUtc.toUTCString().split(" "); // Splitting the UTC date string to extract timezone
+        const dateStrArr = newUtc.toUTCString().split(" "); // Splitting the UTC date string to extract timezone like - ['Sat,', '17', 'Jun', '2023', '10:31:08', 'GMT']
         setLocalDate(newUtc);
         setLocalTimezone(dateStrArr.pop()); // Updating the local timezone
       }
@@ -44,4 +44,4 @@ const useClock = (timezone, offset) => {
   };
 };
 
-export default useClock; // Exporting the custom hook
+export default useClock;
