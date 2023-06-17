@@ -4,16 +4,15 @@ import { TIMEZONE_OFFSET } from "@/app/constants/timezone";
 
 // Custom hook for managing clock state
 const useClock = (timezone, offset) => {
-  // State variables
-  const [localDate, setLocalDate] = useState(null); // Local date and time
-  const [localTimezone, setLocalTimezone] = useState(null); // Local timezone
-  const [localOffset, setLocalOffset] = useState(0); // Local timezone offset
-  const [utc, setUtc] = useState(null); // Coordinated Universal Time (UTC)
+  const [localDate, setLocalDate] = useState(null);
+  const [localTimezone, setLocalTimezone] = useState(null);
+  const [localOffset, setLocalOffset] = useState(0);
+  const [utc, setUtc] = useState(null);
 
   // Effect to set initial UTC and local offset values
   useEffect(() => {
     let d = new Date();
-    const lo = d.getTimezoneOffset(); // now lo is -360
+    const lo = d.getTimezoneOffset(); // lo (localOffset) = -360
     d = addMinutes(d, lo);
     setUtc(d);
     setLocalOffset(lo);
@@ -24,13 +23,20 @@ const useClock = (timezone, offset) => {
     if (utc !== null) {
       if (timezone) {
         offset = TIMEZONE_OFFSET[timezone] ?? offset;
-        const newUtc = addMinutes(utc, offset); // Adjusting UTC based on the selected timezone/offset
+        // newUtc = Adjusting UTC based on the user input timezone/offset
+        const newUtc = addMinutes(utc, offset);
         setLocalDate(newUtc);
       } else {
-        const newUtc = addMinutes(utc, -localOffset); // Adjusting UTC based on the local offset (-360)
-        const dateStrArr = newUtc.toUTCString().split(" "); // Splitting the UTC date string to extract timezone like - ['Sat,', '17', 'Jun', '2023', '10:31:08', 'GMT']
+        // newUtc = Adjusting UTC based on the local offset (-360)
+        const newUtc = addMinutes(utc, -localOffset);
+        /**
+         * dateStrArr = Splitting the UTC date string to extract timezone
+         * like - ['Sat,', '17', 'Jun', '2023', '10:31:08', 'GMT']
+         * dateStrArr.pop() = 'GMT'
+         */
+        const dateStrArr = newUtc.toUTCString().split(" ");
         setLocalDate(newUtc);
-        setLocalTimezone(dateStrArr.pop()); // Updating the local timezone
+        setLocalTimezone(dateStrArr.pop());
       }
     }
   }, [utc, timezone, offset]);

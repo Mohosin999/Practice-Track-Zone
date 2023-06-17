@@ -1,4 +1,5 @@
 import React from "react";
+import useClock from "./hooks/use-clock/useClock";
 
 const Home = () => {
   return (
