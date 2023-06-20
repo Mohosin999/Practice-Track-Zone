@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { format } from "date-fns";
 
-const CLockDisplay = ({ date, title, timezone, offset }) => {
+const ClockDisplay = ({ date, title, timezone, offset }) => {
   let offsetHr = offset / 60;
 
   return (
@@ -17,11 +17,11 @@ const CLockDisplay = ({ date, title, timezone, offset }) => {
   );
 };
 
-CLockDisplay.propTypes = {
+ClockDisplay.propTypes = {
   date: PropTypes.instanceOf(Date).isRequired,
   title: PropTypes.string.isRequired,
   timezone: PropTypes.string.isRequired,
   offset: PropTypes.number.isRequired,
 };
 
-export default CLockDisplay;
+export default ClockDisplay;
