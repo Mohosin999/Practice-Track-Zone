@@ -1,13 +1,27 @@
 "use client";
-import React from "react";
-import useClock from "./hooks/use-clock/useClock";
+import React, { useState } from "react";
+import LocalClock from "./components/local-clock/LocalClock";
+
+const LOCAL_CLOCK_INIT = {
+  title: "My Clock",
+  timezone: "",
+  offset: 0,
+  date: null,
+};
 
 const Home = () => {
-  const { date, dateUtc, offset, timezone } = useClock();
+  const [localClock, setLocalClock] = useState({ ...LOCAL_CLOCK_INIT });
+
+  const updateClock = (date) => {
+    setLocalClock({
+      ...localClock,
+      ...date,
+    });
+  };
 
   return (
     <div>
-      <h2>Root Page</h2>
+      <LocalClock clock={localClock} updateClock={updateLocalClock} />
     </div>
   );
 };
