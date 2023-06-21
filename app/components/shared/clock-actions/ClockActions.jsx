@@ -25,44 +25,52 @@ const ClockActions = ({ local = false, clock, updateClock }) => {
       <button onClick={() => setIsEdit(!isEdit)}>Edit</button>
       {local ? <button>Create</button> : <button>Delete</button>}
       {isEdit && (
-        <div>
+        <>
           <div>
             <label htmlFor="title">Title</label>
             <input
+              id="title"
               type="text"
               name="title"
-              placeholder="Title"
               value={clock.title}
               onChange={handleChange}
             />
           </div>
-          <select
-            name="timezone"
-            value={clock.timezone}
-            onChange={handleChange}
-          >
-            <option value="GMT">GMT</option>
-            <option value="UTC">UTC</option>
-            <option value="PST">PST</option>
-            <option value="EST">EST</option>
-            <option value="EDT">EDT</option>
-            <option value="BST">BST</option>
-            <option value="MST">MST</option>
-          </select>
-          {(clock.timezone === "GMT" || clock.timezone === "UTC") && (
+          <div>
+            <label htmlFor="timezone">Timezone</label>
             <select
-              name="offset"
-              value={clock.offset / 60}
+              id="timezone"
+              name="timezone"
+              value={clock.timezone}
               onChange={handleChange}
             >
-              {defaultOffsets.map((offset) => (
-                <option key={offset} value={offset}>
-                  {offset}
-                </option>
-              ))}
+              <option value="GMT">GMT</option>
+              <option value="UTC">UTC</option>
+              <option value="PST">PST</option>
+              <option value="EST">EST</option>
+              <option value="EDT">EDT</option>
+              <option value="BST">BST</option>
+              <option value="MST">MST</option>
             </select>
+          </div>
+          {(clock.timezone === "GMT" || clock.timezone === "UTC") && (
+            <div>
+              <label htmlFor="offset">Offset</label>
+              <select
+                id="offset"
+                name="offset"
+                value={clock.offset / 60}
+                onChange={handleChange}
+              >
+                {defaultOffsets.map((offset) => (
+                  <option key={offset} value={offset}>
+                    {offset}
+                  </option>
+                ))}
+              </select>
+            </div>
           )}
-        </div>
+        </>
       )}
     </div>
   );
