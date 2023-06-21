@@ -26,13 +26,16 @@ const ClockActions = ({ local = false, clock, updateClock }) => {
       {local ? <button>Create</button> : <button>Delete</button>}
       {isEdit && (
         <div>
-          <input
-            type="text"
-            name="title"
-            value={clock.title}
-            onChange={handleChange}
-          />
-
+          <div>
+            <label htmlFor="title">Title</label>
+            <input
+              type="text"
+              name="title"
+              placeholder="Title"
+              value={clock.title}
+              onChange={handleChange}
+            />
+          </div>
           <select
             name="timezone"
             value={clock.timezone}

@@ -31,5 +31,10 @@ describe("ClockActions", () => {
 
   it("should update clock on input change", () => {
     render(<ClockActions clock={clock} updateClock={updateClock} />);
+
+    const titleInput = screen.getByLabelText("Title");
+    fireEvent.change(titleInput, { target: { value: "Update Clock" } });
+
+    expect(updateClock).toHaveBeenCalledWith({ title: "Update Clock" });
   });
 });
