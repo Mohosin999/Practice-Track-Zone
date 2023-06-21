@@ -9,7 +9,7 @@ describe("ClockForm", () => {
     render(<ClockForm handleClock={handleClock} />);
   });
 
-  test("renders the form with input fields and a submit button", () => {
+  it("should renders the form with input fields and a submit button", () => {
     const titleInput = screen.getByLabelText("Enter Title");
     const timezoneSelect = screen.getByLabelText("Enter Timezone");
     const submitButton = screen.getByRole("button", { name: "Create" });
@@ -19,7 +19,7 @@ describe("ClockForm", () => {
     expect(submitButton).toBeInTheDocument();
   });
 
-  test("updates the form values when input fields are changed", () => {
+  it("should updates the form values when input fields are changed", () => {
     const titleInput = screen.getByLabelText("Enter Title");
     const timezoneSelect = screen.getByLabelText("Enter Timezone");
 
@@ -30,7 +30,7 @@ describe("ClockForm", () => {
     expect(timezoneSelect.value).toBe("PST");
   });
 
-  test("calls handleClock with the correct form values when submitted", () => {
+  it("should calls handleClock with the correct form values when submitted", () => {
     const titleInput = screen.getByLabelText("Enter Title");
     const timezoneSelect = screen.getByLabelText("Enter Timezone");
     const submitButton = screen.getByRole("button", { name: "Create" });
@@ -42,7 +42,7 @@ describe("ClockForm", () => {
     expect(handleClock).toHaveBeenCalledWith({
       title: "New Title",
       timezone: "PST",
-      offset: 0,
+      offset: -420,
     });
   });
 });
