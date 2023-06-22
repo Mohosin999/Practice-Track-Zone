@@ -2,23 +2,34 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import ClockForm from "../clock-form/ClockForm";
 
-const ClockActions = ({ local = false, clock, updateClock, createClock }) => {
+const ClockActions = ({
+  local = false,
+  clock,
+  updateClock,
+  createClock,
+  deleteClock,
+}) => {
   const [isEdit, setIsEdit] = useState(false);
   const [isCreate, setIsCreate] = useState(false);
 
   // handle change function
-  const handleChange = (values) => {
+  const handleClock = (values) => {
     createClock(values);
   };
 
   return (
     <div>
       {/* Edit, Create or Delete Buttons */}
-      <button onClick={() => setIsEdit(!isEdit)}>Edit</button>
+      <button onClick={() => setIsEdit(!isEdit)}>Edit Clock</button>
       {local ? (
-        <button onClick={() => setIsCreate(!isCreate)}>Create</button>
+        <button
+          style={{ marginLeft: "0.5rem" }}
+          onClick={() => setIsCreate(!isCreate)}
+        >
+          Create Folder
+        </button>
       ) : (
-        <button>Delete</button>
+        <button onClick={() => deleteClock(clock.id)}>Delete</button>
       )}
 
       {/* Form display logic */}
@@ -36,7 +47,7 @@ const ClockActions = ({ local = false, clock, updateClock, createClock }) => {
 
       {isCreate && (
         <>
-          <h3>Create New Clock</h3>
+          <h3>Create New Folder</h3>
           <ClockForm handleClock={handleClock} />
         </>
       )}
