@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { generate } from "shortid";
 import LocalClock from "./components/local-clock/LocalClock";
+import ClockLists from "./components/clock-list";
 
 const LOCAL_CLOCK_INIT = {
   title: "My Clock",
@@ -46,9 +47,24 @@ const Home = () => {
   };
 
   return (
-    <div>
-      <LocalClock clock={localClock} updateClock={updateLocalClock} />
-    </div>
+    <>
+      <div>
+        <LocalClock
+          clock={localClock}
+          updateClock={updateLocalClock}
+          createClock={createClock}
+          deleteClock={deleteClock}
+        />
+      </div>
+      <div>
+        <ClockLists
+          localClock={localClock.date}
+          clocks={clocks}
+          updateClock={updateClock}
+          deleteClock={deleteClock}
+        />
+      </div>
+    </>
   );
 };
 
