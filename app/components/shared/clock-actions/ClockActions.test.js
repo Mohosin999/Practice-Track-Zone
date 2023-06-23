@@ -1,6 +1,7 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import ClockActions from "./ClockActions";
+import ClockForm from "../clock-form/ClockForm";
 
 describe("ClockActions", () => {
   const clock = {
@@ -10,29 +11,50 @@ describe("ClockActions", () => {
   };
 
   const updateClock = jest.fn();
+  const createClock = jest.fn();
+  const deleteClock = jest.fn();
 
   it("should renders correctly when local is false", () => {
     render(
-      <ClockActions local={false} clock={clock} updateClock={updateClock} />
+      <ClockActions
+        local={false}
+        clock={clock}
+        updateClock={updateClock}
+        createClock={createClock}
+        deleteClock={deleteClock}
+      />
     );
 
-    expect(screen.getByText("Edit")).toBeInTheDocument();
-    expect(screen.getByText("Delete")).toBeInTheDocument();
+    expect(screen.getByText("Edit Clock")).toBeInTheDocument();
+    expect(screen.getByText("Delete Folder")).toBeInTheDocument();
   });
 
   it("should renders correctly when local is true", () => {
     render(
-      <ClockActions local={true} clock={clock} updateClock={updateClock} />
+      <ClockActions
+        local={true}
+        clock={clock}
+        updateClock={updateClock}
+        createClock={createClock}
+        deleteClock={deleteClock}
+      />
     );
 
-    expect(screen.getByText("Edit")).toBeInTheDocument();
-    expect(screen.getByText("Create")).toBeInTheDocument();
+    expect(screen.getByText("Edit Clock")).toBeInTheDocument();
+    expect(screen.getByText("Create Folder")).toBeInTheDocument();
   });
 
   it("should toggles edit mode on button click", () => {
-    render(<ClockActions clock={clock} updateClock={updateClock} />);
+    render(
+      <ClockActions
+        clock={clock}
+        updateClock={updateClock}
+        createClock={createClock}
+        deleteClock={deleteClock}
+      />
+    );
 
-    const editButton = screen.getByText("Edit");
+    const editButton = screen.getByText("Edit Clock");
     fireEvent.click(editButton);
 
     const labelText = screen.getByLabelText("Title");
@@ -45,7 +67,14 @@ describe("ClockActions", () => {
   });
 
   it("should update clock title on input change", () => {
-    render(<ClockActions clock={clock} updateClock={updateClock} />);
+    render(
+      <ClockActions
+        clock={clock}
+        updateClock={updateClock}
+        createClock={createClock}
+        deleteClock={deleteClock}
+      />
+    );
 
     const titleInput = screen.getByLabelText("Title");
     fireEvent.change(titleInput, { target: { value: "Update Clock" } });
@@ -54,7 +83,14 @@ describe("ClockActions", () => {
   });
 
   it("should updates clock timezone on select change", () => {
-    render(<ClockActions clock={clock} updateClock={updateClock} />);
+    render(
+      <ClockActions
+        clock={clock}
+        updateClock={updateClock}
+        createClock={createClock}
+        deleteClock={deleteClock}
+      />
+    );
 
     const timezoneSelect = screen.getByLabelText("Timezone");
     fireEvent.change(timezoneSelect, { target: { value: "UTC" } });
@@ -65,7 +101,14 @@ describe("ClockActions", () => {
   });
 
   it("should updates clock offset on select change", () => {
-    render(<ClockActions clock={clock} updateClock={updateClock} />);
+    render(
+      <ClockActions
+        clock={clock}
+        updateClock={updateClock}
+        createClock={createClock}
+        deleteClock={deleteClock}
+      />
+    );
 
     const offsetSelect = screen.getByLabelText("Offset");
     fireEvent.change(offsetSelect, { target: { value: -11.5 } });
