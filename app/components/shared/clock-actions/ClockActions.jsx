@@ -29,13 +29,13 @@ const ClockActions = ({
           Create Folder
         </button>
       ) : (
-        <button onClick={() => deleteClock(clock.id)}>Delete</button>
+        <button onClick={() => deleteClock(clock.id)}>Delete Folder</button>
       )}
 
       {/* Form display logic */}
       {isEdit && (
         <>
-          <h3>Edit Clock</h3>
+          <h3>Edit Clock Form</h3>
           <ClockForm
             values={clock}
             handleClock={updateClock}
