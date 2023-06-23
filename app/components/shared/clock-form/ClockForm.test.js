@@ -5,11 +5,21 @@ import ClockForm from "./ClockForm";
 describe("ClockForm", () => {
   const handleClock = jest.fn();
 
-  beforeEach(() => {
-    render(<ClockForm handleClock={handleClock} />);
+  it("should renders the form with input fields and a submit button when edit is true", () => {
+    render(<ClockForm edit={true} handleClock={handleClock} />);
+
+    const titleInput = screen.getByLabelText("Enter Title");
+    const timezoneSelect = screen.getByLabelText("Enter Timezone");
+    const submitButton = screen.getByRole("button", { name: "Update" });
+
+    expect(titleInput).toBeInTheDocument();
+    expect(timezoneSelect).toBeInTheDocument();
+    expect(submitButton).toBeInTheDocument();
   });
 
-  it("should renders the form with input fields and a submit button", () => {
+  it("should renders the form with input fields and a submit button when edit is false", () => {
+    render(<ClockForm edit={false} handleClock={handleClock} />);
+
     const titleInput = screen.getByLabelText("Enter Title");
     const timezoneSelect = screen.getByLabelText("Enter Timezone");
     const submitButton = screen.getByRole("button", { name: "Create" });
@@ -20,6 +30,8 @@ describe("ClockForm", () => {
   });
 
   it("should updates the form values when input fields are changed", () => {
+    render(<ClockForm handleClock={handleClock} />);
+
     const titleInput = screen.getByLabelText("Enter Title");
     const timezoneSelect = screen.getByLabelText("Enter Timezone");
 
@@ -31,6 +43,8 @@ describe("ClockForm", () => {
   });
 
   it("should calls handleClock with the correct form values when submitted", () => {
+    render(<ClockForm handleClock={handleClock} />);
+
     const titleInput = screen.getByLabelText("Enter Title");
     const timezoneSelect = screen.getByLabelText("Enter Timezone");
     const submitButton = screen.getByRole("button", { name: "Create" });
