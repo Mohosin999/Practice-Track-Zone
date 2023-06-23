@@ -10,6 +10,7 @@ const ClockForm = ({
 }) => {
   const [formValues, setFormValues] = useState({ ...values });
 
+  // useEffect to set offset according to timezone
   useEffect(() => {
     if (TIMEZONE_OFFSET[formValues.timezone]) {
       setFormValues((prev) => ({
@@ -19,6 +20,7 @@ const ClockForm = ({
     }
   }, [formValues.timezone]);
 
+  // handleChange function
   const handleChange = (e) => {
     let { name, value } = e.target;
 
@@ -32,13 +34,53 @@ const ClockForm = ({
     }));
   };
 
+  // This function is used to control the form by pressing the keyboard
+  const handleKeyDown = (e) => {
+    if (e.key === "ArrowUp" || e.key === "ArrowDown") {
+      e.preventDefault();
+
+      const formElements = Array.from(
+        document.querySelectorAll(
+          ".clock-form input, .clock-form select, .clock-form button"
+        )
+      );
+
+      const currentElement = document.activeElement;
+      const currentIndex = formElements.indexOf(currentElement);
+
+      let nextIndex;
+
+      if (e.key === "ArrowUp") {
+        nextIndex = currentIndex - 1;
+        if (nextIndex < 0) {
+          nextIndex = formElements.length - 1;
+        }
+      } else if (e.key === "ArrowDown") {
+        nextIndex = currentIndex + 1;
+        if (nextIndex >= formElements.length) {
+          nextIndex = 0;
+        }
+      }
+
+      const nextElement = formElements[nextIndex];
+      if (nextElement) {
+        nextElement.focus();
+      }
+    }
+  };
+
+  // handleSubmit function
   const handleSubmit = (e) => {
     e.preventDefault();
     handleClock(formValues); // state lifting
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form
+      onSubmit={handleSubmit}
+      onKeyDown={handleKeyDown}
+      className="clock-form"
+    >
       <div>
         <label htmlFor="title">Enter Title</label>
         <input
