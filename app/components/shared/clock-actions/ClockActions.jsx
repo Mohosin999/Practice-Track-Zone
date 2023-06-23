@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import ClockForm from "../clock-form/ClockForm";
 
@@ -12,58 +12,73 @@ const ClockActions = ({
   const [isEdit, setIsEdit] = useState(false);
   const [isCreate, setIsCreate] = useState(false);
 
-  // handle change function
   const handleClock = (values) => {
     createClock(values);
   };
 
-  // This function handled open edit form only
   const openEditForm = () => {
     setIsEdit(!isEdit);
     setIsCreate(false);
   };
 
-  // This function handled open create form only
   const openCreateForm = () => {
     setIsEdit(false);
     setIsCreate(!isCreate);
   };
 
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (isEdit || isCreate) {
-        if (e.key === "ArrowRight") {
-          e.preventDefault();
-          setIsEdit(false);
-          setIsCreate(true);
-        } else if (e.key === "ArrowLeft") {
-          e.preventDefault();
-          setIsEdit(true);
-          setIsCreate(false);
+  const handleKeyDown = (e) => {
+    if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
+      e.preventDefault();
+
+      const formElements = Array.from(
+        document.querySelectorAll(".edit-button button, .create-button button")
+      );
+
+      const currentElement = document.activeElement;
+      const currentIndex = formElements.indexOf(currentElement);
+
+      let nextIndex;
+
+      if (e.key === "ArrowLeft") {
+        setIsEdit(true);
+        setIsCreate(false);
+        nextIndex = currentIndex - 1;
+        if (nextIndex < 0) {
+          nextIndex = formElements.length - 1;
+        }
+      } else if (e.key === "ArrowRight") {
+        setIsEdit(false);
+        setIsCreate(true);
+        nextIndex = currentIndex + 1;
+        if (nextIndex >= formElements.length) {
+          nextIndex = 0;
         }
       }
-    };
 
-    document.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [isEdit, isCreate]);
+      const nextElement = formElements[nextIndex];
+      if (nextElement) {
+        nextElement.focus();
+      }
+    }
+  };
 
   return (
-    <div>
-      {/* Edit, Create or Delete Buttons */}
-      <button onClick={openEditForm}>Edit Clock</button>
+    <div onKeyDown={handleKeyDown}>
+      <button className="edit-button" onClick={openEditForm}>
+        Edit Clock
+      </button>
       {local ? (
-        <button style={{ marginLeft: "0.5rem" }} onClick={openCreateForm}>
+        <button
+          style={{ marginLeft: "0.5rem" }}
+          className="create-button"
+          onClick={openCreateForm}
+        >
           Create Folder
         </button>
       ) : (
         <button onClick={() => deleteClock(clock.id)}>Delete Folder</button>
       )}
 
-      {/* Form display logic */}
       {isEdit && (
         <>
           <h3>Edit Clock Form</h3>

@@ -7,6 +7,7 @@ const ClockForm = ({
   handleClock,
   title = true,
   edit = false,
+  ref,
 }) => {
   const [formValues, setFormValues] = useState({ ...values });
 
@@ -80,6 +81,7 @@ const ClockForm = ({
       onSubmit={handleSubmit}
       onKeyDown={handleKeyDown}
       className="clock-form"
+      // ref={ref}
     >
       <div>
         <label htmlFor="title">Enter Title</label>
@@ -90,6 +92,7 @@ const ClockForm = ({
           value={formValues.title}
           onChange={handleChange}
           disabled={!title}
+          // ref={ref}
         />
       </div>
 
