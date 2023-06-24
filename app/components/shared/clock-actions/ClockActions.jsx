@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import PropTypes from "prop-types";
 import ClockForm from "../clock-form/ClockForm";
 
@@ -12,10 +12,8 @@ const ClockActions = ({
   const [isEdit, setIsEdit] = useState(false);
   const [isCreate, setIsCreate] = useState(false);
 
-  useEffect(() => {
-    console.log("edit button --> ", isEdit);
-    console.log(isCreate);
-  }, [isEdit, isCreate]);
+  const editButtonRef = useRef(null);
+  const createButtonRef = useRef(null);
 
   const handleClock = (values) => {
     createClock(values);
@@ -32,23 +30,36 @@ const ClockActions = ({
   };
 
   useEffect(() => {
-    let handler = () => {
-      setIsEdit(false);
-      setIsCreate(false);
+    const handleClickOutside = (event) => {
+      if (
+        editButtonRef.current &&
+        !editButtonRef.current.contains(event.target) &&
+        createButtonRef.current &&
+        !createButtonRef.current.contains(event.target)
+      ) {
+        setIsEdit(false);
+        setIsCreate(false);
+      }
     };
 
-    document.addEventListener("mousedown", handler);
+    document.addEventListener("mousedown", handleClickOutside);
 
     return () => {
-      document.removeEventListener("mousedown", handler);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
   return (
     <div>
-      <button onClick={openEditForm}>Edit Clock</button>
+      <button onClick={openEditForm} ref={editButtonRef}>
+        Edit Clock
+      </button>
       {local ? (
-        <button style={{ marginLeft: "0.5rem" }} onClick={openCreateForm}>
+        <button
+          style={{ marginLeft: "0.5rem" }}
+          onClick={openCreateForm}
+          ref={createButtonRef}
+        >
           Create Folder
         </button>
       ) : (
