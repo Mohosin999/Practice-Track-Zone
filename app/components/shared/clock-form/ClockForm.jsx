@@ -42,7 +42,7 @@ const ClockForm = ({
 
       const formElements = Array.from(
         document.querySelectorAll(
-          ".clock-form input, .clock-form select, .clock-form button"
+          ".clock-form input:not([disabled]), .clock-form select:not([disabled]), .clock-form button:not([disabled])"
         )
       );
 
@@ -81,7 +81,6 @@ const ClockForm = ({
       onSubmit={handleSubmit}
       onKeyDown={handleKeyDown}
       className="clock-form"
-      // ref={ref}
     >
       <div>
         <label htmlFor="title">Enter Title</label>
@@ -92,7 +91,6 @@ const ClockForm = ({
           value={formValues.title}
           onChange={handleChange}
           disabled={!title}
-          // ref={ref}
         />
       </div>
 
