@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import ClockForm from "../clock-form/ClockForm";
 
@@ -11,6 +11,11 @@ const ClockActions = ({
 }) => {
   const [isEdit, setIsEdit] = useState(false);
   const [isCreate, setIsCreate] = useState(false);
+
+  useEffect(() => {
+    console.log("edit button --> ", isEdit);
+    console.log(isCreate);
+  }, [isEdit, isCreate]);
 
   const handleClock = (values) => {
     createClock(values);
@@ -25,6 +30,19 @@ const ClockActions = ({
     setIsEdit(false);
     setIsCreate(!isCreate);
   };
+
+  useEffect(() => {
+    let handler = () => {
+      setIsEdit(false);
+      setIsCreate(false);
+    };
+
+    document.addEventListener("mousedown", handler);
+
+    return () => {
+      document.removeEventListener("mousedown", handler);
+    };
+  }, []);
 
   return (
     <div>
