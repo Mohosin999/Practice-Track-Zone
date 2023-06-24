@@ -14,6 +14,7 @@ const ClockActions = ({
 
   const editButtonRef = useRef(null);
   const createButtonRef = useRef(null);
+  const formRef = useRef(null);
 
   const handleClock = (values) => {
     createClock(values);
@@ -32,6 +33,8 @@ const ClockActions = ({
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
+        formRef.current &&
+        !formRef.current.contains(event.target) &&
         editButtonRef.current &&
         !editButtonRef.current.contains(event.target) &&
         createButtonRef.current &&
@@ -66,23 +69,27 @@ const ClockActions = ({
         <button onClick={() => deleteClock(clock.id)}>Delete Folder</button>
       )}
 
-      {isEdit && (
-        <>
-          <h3>Edit Clock Form</h3>
-          <ClockForm
-            values={clock}
-            handleClock={updateClock}
-            edit={true}
-            title={!local}
-          />
-        </>
-      )}
+      {(isEdit || isCreate) && (
+        <div ref={formRef}>
+          {isEdit && (
+            <>
+              <h3>Edit Clock Form</h3>
+              <ClockForm
+                values={clock}
+                handleClock={updateClock}
+                edit={true}
+                title={!local}
+              />
+            </>
+          )}
 
-      {isCreate && (
-        <>
-          <h3>Create New Folder</h3>
-          <ClockForm handleClock={handleClock} />
-        </>
+          {isCreate && (
+            <>
+              <h3>Create New Folder</h3>
+              <ClockForm handleClock={handleClock} />
+            </>
+          )}
+        </div>
       )}
     </div>
   );
