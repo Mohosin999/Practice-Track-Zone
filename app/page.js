@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { generate } from "shortid";
 import LocalClock from "./components/local-clock/LocalClock";
 import ClockLists from "./components/clock-list";
@@ -12,12 +12,23 @@ const LOCAL_CLOCK_INIT = {
   date: null,
 };
 
-const Home = () => {
+const HomePage = () => {
   const [localClock, setLocalClock] = useState({ ...LOCAL_CLOCK_INIT });
   const [clocks, setClocks] = useState([]);
   const [folders, setFolders] = useState([]);
 
-  console.log("created folders --> ", folders, folders.folderName);
+  // Folder Displaying on screen although browser reloaded - start
+  useEffect(() => {
+    const storedFolders = localStorage.getItem("folders");
+    if (storedFolders) {
+      setFolders(JSON.parse(storedFolders));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("folders", JSON.stringify(folders));
+  }, [folders]);
+  // Folder Displaying on screen although browser reloaded - end
 
   // This function is for local clock update
   function updateLocalClock(date) {
@@ -83,4 +94,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default HomePage;

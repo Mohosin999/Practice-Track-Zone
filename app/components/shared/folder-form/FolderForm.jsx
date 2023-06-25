@@ -18,7 +18,7 @@ const FolderForm = ({ createFolder }) => {
     createFolder({ folderName, password });
 
     // Store folder name and password in local storage
-    localStorage.setItem(folderName, password);
+    // localStorage.setItem(folderName, password);
 
     // Clear form inputs
     setFolderName("");
