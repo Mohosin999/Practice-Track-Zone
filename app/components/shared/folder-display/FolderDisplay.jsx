@@ -1,16 +1,95 @@
-import React, { useState } from "react";
-import { styled } from "styled-components";
+// import React, { useState } from "react";
+// import { useRouter } from "next/navigation";
+// // import { styled } from "styled-components";
 
-const FolderHeading = styled.h2`
-  background-color: #efefef;
-  cursor: pointer;
-`;
+// // const FolderHeading = styled.h2`
+// //   background-color: #efefef;
+// //   cursor: pointer;
+// // `;
+
+// const FolderDisplay = ({ folderName }) => {
+//   const [isClicked, setIsClicked] = useState(false);
+//   const [selectedFolder, setSelectedFolder] = useState(null);
+//   const [password, setPassword] = useState("");
+//   const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+//   const router = useRouter();
+
+//   const handleFolderClick = () => {
+//     setSelectedFolder(folderName);
+//   };
+
+//   const handleAuthenticate = () => {
+//     const storedFolders = JSON.parse(localStorage.getItem("folders"));
+//     const selectedFolderData = storedFolders.find(
+//       (folder) => folder.folderName === folderName
+//     );
+
+//     if (selectedFolderData && password === selectedFolderData.password) {
+//       setIsAuthenticated(true);
+//       // Perform any actions you want when authentication is successful
+//       alert("Authentication successful!");
+//       router.push("/myfile");
+//       // setPassword("");
+//     } else {
+//       setIsAuthenticated(false);
+//       // Perform any actions you want when authentication fails
+//       alert("Authentication failed!");
+//     }
+//   };
+
+//   const handleClick = () => {
+//     setIsClicked(true);
+//     setTimeout(() => {
+//       setIsClicked(false);
+//     }, 20);
+//   };
+
+//   return (
+//     <div>
+//       {selectedFolder ? (
+//         <div>
+//           <input
+//             type="password"
+//             placeholder="Enter Password"
+//             value={password}
+//             onChange={(e) => setPassword(e.target.value)}
+//           />
+//           <button onClick={handleAuthenticate}>Enter Password</button>
+//         </div>
+//       ) : (
+//         <div>
+//           <div
+//             isClicked={isClicked}
+//             onClick={() => {
+//               handleFolderClick();
+//               handleClick();
+//             }}
+//           >
+//             {folderName}
+//           </div>
+//         </div>
+//       )}
+//     </div>
+//   );
+// };
+
+// export default FolderDisplay;
+
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 const FolderDisplay = ({ folderName }) => {
   const [isClicked, setIsClicked] = useState(false);
   const [selectedFolder, setSelectedFolder] = useState(null);
   const [password, setPassword] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    setSelectedFolder(folderName);
+  }, []);
 
   const handleFolderClick = () => {
     setSelectedFolder(folderName);
@@ -26,6 +105,7 @@ const FolderDisplay = ({ folderName }) => {
       setIsAuthenticated(true);
       // Perform any actions you want when authentication is successful
       alert("Authentication successful!");
+      router.push("/myfile");
       // setPassword("");
     } else {
       setIsAuthenticated(false);
@@ -42,7 +122,7 @@ const FolderDisplay = ({ folderName }) => {
   };
 
   return (
-    <div>
+    <div suppressHydrationWarning>
       {selectedFolder ? (
         <div>
           <input
@@ -55,7 +135,7 @@ const FolderDisplay = ({ folderName }) => {
         </div>
       ) : (
         <div>
-          <FolderHeading
+          <div
             isClicked={isClicked}
             onClick={() => {
               handleFolderClick();
@@ -63,7 +143,7 @@ const FolderDisplay = ({ folderName }) => {
             }}
           >
             {folderName}
-          </FolderHeading>
+          </div>
         </div>
       )}
     </div>
