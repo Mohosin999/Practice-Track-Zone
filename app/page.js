@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { generate } from "shortid";
 import LocalClock from "./components/local-clock/LocalClock";
 import ClockLists from "./components/clock-list";
+import FolderLists from "./components/folder-event/FolderLists";
 
 const LOCAL_CLOCK_INIT = {
   title: "My Clock",
@@ -16,7 +17,7 @@ const Home = () => {
   const [clocks, setClocks] = useState([]);
   const [folders, setFolders] = useState([]);
 
-  console.log("created folders --> ", folders);
+  console.log("created folders --> ", folders, folders.folderName);
 
   // This function is for local clock update
   function updateLocalClock(date) {
@@ -74,6 +75,10 @@ const Home = () => {
           deleteClock={deleteClock}
         />
       </div> */}
+
+      <div>
+        <FolderLists folders={folders} />
+      </div>
     </>
   );
 };

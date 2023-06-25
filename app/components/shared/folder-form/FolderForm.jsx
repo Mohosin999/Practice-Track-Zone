@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const FolderForm = ({ handleCreateFolder }) => {
+const FolderForm = ({ createFolder }) => {
   const [folderName, setFolderName] = useState("");
   const [password, setPassword] = useState("");
   const [step, setStep] = useState(1);
@@ -15,7 +15,7 @@ const FolderForm = ({ handleCreateFolder }) => {
     e.preventDefault();
 
     // Pass an object with folderName and password properties
-    // handleCreateFolder({ folderName, password });
+    createFolder({ folderName, password });
 
     // Store folder name and password in local storage
     localStorage.setItem(folderName, password);

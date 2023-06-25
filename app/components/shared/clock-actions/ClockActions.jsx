@@ -22,10 +22,6 @@ const ClockActions = ({
   //   createClock(values);
   // };
 
-  const handleCreatedFolder = (values) => {
-    createFolder(values);
-  };
-
   const openEditForm = () => {
     setIsEdit(!isEdit);
     setIsCreate(false);
@@ -99,7 +95,7 @@ const ClockActions = ({
           {isCreate && (
             <>
               <h3>Create New Folder</h3>
-              <FolderForm handleCreatedFolder={handleCreatedFolder} />
+              <FolderForm createFolder={createFolder} />
             </>
           )}
         </div>
