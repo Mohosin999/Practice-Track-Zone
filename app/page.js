@@ -14,6 +14,9 @@ const LOCAL_CLOCK_INIT = {
 const Home = () => {
   const [localClock, setLocalClock] = useState({ ...LOCAL_CLOCK_INIT });
   const [clocks, setClocks] = useState([]);
+  const [folders, setFolders] = useState([]);
+
+  console.log("created folders --> ", folders);
 
   // This function is for local clock update
   function updateLocalClock(date) {
@@ -27,6 +30,12 @@ const Home = () => {
   const createClock = (clock) => {
     clock.id = generate();
     setClocks([...clocks, clock]);
+  };
+
+  // This function is for create folder
+  const createFolder = (folder) => {
+    folder.id = generate();
+    setFolders([...folders, folder]);
   };
 
   // This function is for created clock updates
@@ -54,16 +63,17 @@ const Home = () => {
           updateClock={updateLocalClock}
           createClock={createClock}
           deleteClock={deleteClock}
+          createFolder={createFolder}
         />
       </div>
-      <div>
+      {/* <div>
         <ClockLists
           localClock={localClock.date}
           clocks={clocks}
           updateClock={updateClock}
           deleteClock={deleteClock}
         />
-      </div>
+      </div> */}
     </>
   );
 };

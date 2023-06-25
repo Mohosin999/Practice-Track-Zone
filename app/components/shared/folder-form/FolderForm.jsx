@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const FolderForm = () => {
+const FolderForm = ({ handleCreateFolder }) => {
   const [folderName, setFolderName] = useState("");
   const [password, setPassword] = useState("");
   const [step, setStep] = useState(1);
@@ -11,8 +11,11 @@ const FolderForm = () => {
   };
 
   // This function is for performing all tasks after from submit
-  const handleCreateFolder = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Pass an object with folderName and password properties
+    // handleCreateFolder({ folderName, password });
 
     // Store folder name and password in local storage
     localStorage.setItem(folderName, password);
@@ -47,7 +50,7 @@ const FolderForm = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <button onClick={handleCreateFolder}>Create Folder</button>
+          <button onClick={handleSubmit}>Create Folder</button>
           <button onClick={() => setStep(step - 1)}>Previous</button>
         </div>
       )}
