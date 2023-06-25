@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import PropTypes from "prop-types";
 import ClockForm from "../clock-form/ClockForm";
+import FolderForm from "../folder-form/FolderForm";
 
 const ClockActions = ({
   local = false,
@@ -92,7 +93,8 @@ const ClockActions = ({
 
           {isCreate && (
             <>
-              <h1>akash</h1>
+              <h3>Create New Folder</h3>
+              <FolderForm />
             </>
           )}
         </div>
