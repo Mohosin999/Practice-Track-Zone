@@ -11,6 +11,7 @@ const FolderDisplay = ({ folderName }) => {
   const [isClicked, setIsClicked] = useState(false);
   const [selectedFolder, setSelectedFolder] = useState(null);
   const [password, setPassword] = useState("");
+
   // const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   console.log("selected folder ->> ", selectedFolder);
@@ -47,6 +48,38 @@ const FolderDisplay = ({ folderName }) => {
     }
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
+      e.preventDefault();
+
+      const formElements = Array.from(
+        document.querySelectorAll("input, button")
+      );
+
+      const currentElement = document.activeElement;
+      const currentIndex = formElements.indexOf(currentElement);
+
+      let nextIndex;
+
+      if (e.key === "ArrowLeft") {
+        nextIndex = currentIndex - 1;
+        if (nextIndex < 0) {
+          nextIndex = formElements.length - 1;
+        }
+      } else if (e.key === "ArrowRight") {
+        nextIndex = currentIndex + 1;
+        if (nextIndex >= formElements.length) {
+          nextIndex = 0;
+        }
+      }
+
+      const nextElement = formElements[nextIndex];
+      if (nextElement) {
+        nextElement.focus();
+      }
+    }
+  };
+
   // const handleClick = () => {
   //   setIsClicked(true);
   //   setTimeout(() => {
@@ -55,9 +88,9 @@ const FolderDisplay = ({ folderName }) => {
   // };
 
   return (
-    <div onClick={handleClickOutside}>
+    <div>
       {selectedFolder ? (
-        <div>
+        <div onKeyDown={handleKeyDown}>
           <input
             type="password"
             placeholder="Enter Password"
