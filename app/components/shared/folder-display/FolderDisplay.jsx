@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 // import { styled } from "styled-components";
 
@@ -12,9 +12,7 @@ const FolderDisplay = ({ folderName }) => {
   const [selectedFolder, setSelectedFolder] = useState(null);
   const [password, setPassword] = useState("");
 
-  // const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  console.log("selected folder ->> ", selectedFolder);
+  const inputRef = useRef(null);
 
   const router = useRouter();
 
@@ -29,24 +27,31 @@ const FolderDisplay = ({ folderName }) => {
     );
 
     if (selectedFolderData && password === selectedFolderData.password) {
-      // setIsAuthenticated(true);
-      // Perform any actions you want when authentication is successful
-      // alert("Authentication successful!");
       router.push("/folder-page");
-      // setPassword("");
     } else {
-      // setIsAuthenticated(false);
-      // Perform any actions you want when authentication fails
       alert("Authentication failed!");
     }
   };
 
-  const handleClickOutside = () => {
-    // Close the folder when clicked outside
-    if (selectedFolder) {
-      setSelectedFolder(null);
-    }
-  };
+  // const handleClickOutside = () => {
+  //   if (selectedFolder) {
+  //     setSelectedFolder(null);
+  //   }
+  // };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (inputRef.current && !inputRef.current.contains(event.target)) {
+        setSelectedFolder(null);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const handleKeyDown = (e) => {
     if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
@@ -90,7 +95,7 @@ const FolderDisplay = ({ folderName }) => {
   return (
     <div>
       {selectedFolder ? (
-        <div onKeyDown={handleKeyDown}>
+        <div onKeyDown={handleKeyDown} ref={inputRef}>
           <input
             type="password"
             placeholder="Enter Password"

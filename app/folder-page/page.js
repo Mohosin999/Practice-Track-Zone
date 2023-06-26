@@ -1,6 +1,10 @@
+"use client";
 import React from "react";
+import { useRouter } from "next/navigation";
 
 const FolderPage = () => {
+  const router = useRouter();
+
   return (
     <div>
       <h2>Welcome to Folder Page</h2>
@@ -12,6 +16,8 @@ const FolderPage = () => {
         next/router package installed and import the useRouter() hook correctly
         in your component file.
       </p>
+
+      <button onClick={() => router.back()}>Go Back</button>
     </div>
   );
 };
