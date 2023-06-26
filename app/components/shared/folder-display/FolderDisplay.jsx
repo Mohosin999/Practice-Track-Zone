@@ -13,6 +13,8 @@ const FolderDisplay = ({ folderName }) => {
   const [password, setPassword] = useState("");
   // const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+  console.log("selected folder ->> ", selectedFolder);
+
   const router = useRouter();
 
   const handleFolderClick = () => {
@@ -38,15 +40,22 @@ const FolderDisplay = ({ folderName }) => {
     }
   };
 
-  const handleClick = () => {
-    setIsClicked(true);
-    setTimeout(() => {
-      setIsClicked(false);
-    }, 20);
+  const handleClickOutside = () => {
+    // Close the folder when clicked outside
+    if (selectedFolder) {
+      setSelectedFolder(null);
+    }
   };
 
+  // const handleClick = () => {
+  //   setIsClicked(true);
+  //   setTimeout(() => {
+  //     setIsClicked(false);
+  //   }, 20);
+  // };
+
   return (
-    <div>
+    <div onClick={handleClickOutside}>
       {selectedFolder ? (
         <div>
           <input
@@ -59,13 +68,7 @@ const FolderDisplay = ({ folderName }) => {
         </div>
       ) : (
         <div>
-          <div
-            isClicked={isClicked}
-            onClick={() => {
-              handleFolderClick();
-              handleClick();
-            }}
-          >
+          <div isClicked={isClicked} onClick={handleFolderClick}>
             {folderName}
           </div>
         </div>
