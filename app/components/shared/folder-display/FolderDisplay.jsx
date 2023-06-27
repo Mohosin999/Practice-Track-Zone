@@ -27,17 +27,11 @@ const FolderDisplay = ({ folderName }) => {
     );
 
     if (selectedFolderData && password === selectedFolderData.password) {
-      router.push("/folder-page");
+      router.push(`/folder/${folderName}`);
     } else {
       alert("Authentication failed!");
     }
   };
-
-  // const handleClickOutside = () => {
-  //   if (selectedFolder) {
-  //     setSelectedFolder(null);
-  //   }
-  // };
 
   useEffect(() => {
     const handleClickOutside = (event) => {
