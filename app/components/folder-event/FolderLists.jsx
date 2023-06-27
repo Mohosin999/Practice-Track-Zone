@@ -12,7 +12,11 @@ const FolderLists = ({ folders }) => {
       ) : (
         <div>
           {folders.map((folder) => (
-            <FolderDisplay key={folder.id} folderName={folder.folderName} />
+            <FolderDisplay
+              key={folder.id}
+              id={folder.id}
+              folderName={folder.folderName}
+            />
           ))}
         </div>
       )}
