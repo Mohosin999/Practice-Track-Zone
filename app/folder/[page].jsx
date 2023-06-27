@@ -1,11 +1,10 @@
 "use client";
 import React from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 const FolderPage = () => {
   const router = useRouter();
-  const slug = router.query.slug;
-  console.log(slug);
+  const slug = router.query;
 
   return (
     <div>
