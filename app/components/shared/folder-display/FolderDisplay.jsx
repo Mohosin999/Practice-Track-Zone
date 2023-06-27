@@ -28,7 +28,7 @@ const FolderDisplay = ({ folderName, id }) => {
 
     if (selectedFolderData && password === selectedFolderData.password) {
       // router.push(`/folder`);
-      router.push(`/folder/${id}`);
+      router.push(`/folder-page/${id}`);
     } else {
       alert("Authentication failed!");
     }
