@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 //   cursor: pointer;
 // `;
 
-const FolderDisplay = ({ folderName }) => {
+const FolderDisplay = ({ folderName, id }) => {
   const [isClicked, setIsClicked] = useState(false);
   const [selectedFolder, setSelectedFolder] = useState(null);
   const [password, setPassword] = useState("");
@@ -27,7 +27,8 @@ const FolderDisplay = ({ folderName }) => {
     );
 
     if (selectedFolderData && password === selectedFolderData.password) {
-      router.push(`/folder/${folderName}`);
+      // router.push(`/folder`);
+      router.push(`/folder/${id}`);
     } else {
       alert("Authentication failed!");
     }
