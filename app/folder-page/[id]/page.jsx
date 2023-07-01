@@ -8,12 +8,7 @@ const FolderPage = () => {
   const router = useRouter();
   const pathName = usePathname();
 
-  const handleAddText = () => {
-    const updatedTextList = [...textList, text];
-    localStorage.setItem(pathName, JSON.stringify(updatedTextList));
-    setTextList(updatedTextList);
-    setText("");
-  };
+  const [isCreate, setIsCreate] = useState(false);
 
   useEffect(() => {
     const savedTextList = localStorage.getItem(pathName);
@@ -21,6 +16,17 @@ const FolderPage = () => {
       setTextList(JSON.parse(savedTextList));
     }
   }, []);
+
+  const handleAddText = () => {
+    const updatedTextList = [...textList, text];
+    localStorage.setItem(pathName, JSON.stringify(updatedTextList));
+    setTextList(updatedTextList);
+    setText("");
+  };
+
+  const handleCreateClock = () => {
+    setIsCreate(!isCreate);
+  };
 
   return (
     <div>
@@ -34,7 +40,7 @@ const FolderPage = () => {
         in your component file.
       </p>
 
-      <input
+      {/* <input
         type="text"
         value={text}
         onChange={(e) => setText(e.target.value)}
@@ -45,7 +51,9 @@ const FolderPage = () => {
         {textList.map((item, index) => (
           <li key={index}>{item}</li>
         ))}
-      </ul>
+      </ul> */}
+
+      <button>Create New Clock</button>
 
       <button onClick={() => router.back()}>Go Back</button>
     </div>
