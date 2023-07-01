@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
+import ClockForm from "@/app/components/shared/clock-form/ClockForm";
 
 const FolderPage = () => {
   const [text, setText] = useState("");
@@ -53,7 +54,9 @@ const FolderPage = () => {
         ))}
       </ul> */}
 
-      <button>Create New Clock</button>
+      <button onClick={handleCreateClock}>Create New Clock</button>
+
+      {isCreate && <ClockForm />}
 
       <button onClick={() => router.back()}>Go Back</button>
     </div>
