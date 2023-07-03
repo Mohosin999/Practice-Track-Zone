@@ -1,7 +1,13 @@
 import React from "react";
 import FolderDisplay from "../shared/folder-display/FolderDisplay";
 
-const FolderLists = ({ folders }) => {
+const FolderLists = ({
+  folders,
+  clocks,
+  updateClock,
+  deleteClock,
+  localClock,
+}) => {
   return (
     <div>
       <h3>All Folder Lists</h3>
@@ -16,6 +22,10 @@ const FolderLists = ({ folders }) => {
               key={folder.id}
               id={folder.id}
               folderName={folder.folderName}
+              clocks={clocks}
+              updateClock={updateClock}
+              deleteClock={deleteClock}
+              localClock={localClock}
             />
           ))}
         </div>

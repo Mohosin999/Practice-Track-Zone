@@ -43,19 +43,6 @@ const FolderPage = () => {
         in your component file.
       </p>
 
-      {/* <input
-        type="text"
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-      />
-      <button onClick={handleAddText}>Add</button>
-
-      <ul>
-        {textList.map((item, index) => (
-          <li key={index}>{item}</li>
-        ))}
-      </ul> */}
-
       <button onClick={handleCreateClock}>Create New Clock</button>
 
       {isCreate && <ClockLists />}
