@@ -2,6 +2,16 @@ import { action } from "easy-peasy";
 import { generate } from "shortid";
 
 const clockModel = {
+  localClock: {
+    title: "Track Zone Application",
+    timezone: "",
+    offset: 0,
+    date: null,
+    update: action((state, date) => {
+      state.date = { ...state.date, ...date };
+    }),
+  },
+
   clocks: [],
   folders: [],
 
