@@ -14,17 +14,17 @@ import { useStoreState } from "easy-peasy";
 // };
 
 const HomePage = () => {
-  const localClock = useStoreState((state) => state.localClock);
-  const clocks = useStoreState((state) => state.clocks);
-  const folders = useStoreState((state) => state.folders);
+  // const localClock = useStoreState((state) => state.localClock);
+  // const clocks = useStoreState((state) => state.clocks);
+  // const folders = useStoreState((state) => state.folders);
 
-  const updateLocalClock = useStoreActions(
-    (actions) => actions.localClock.update
-  );
-  const createClock = useStoreActions((actions) => actions.createClock);
-  const createFolder = useStoreActions((actions) => actions.createFolder);
-  const updateClock = useStoreActions((actions) => actions.updateClock);
-  const deleteClock = useStoreActions((actions) => actions.deleteClock);
+  // const updateLocalClock = useStoreActions(
+  //   (actions) => actions.localClock.update
+  // );
+  // const createClock = useStoreActions((actions) => actions.createClock);
+  // const createFolder = useStoreActions((actions) => actions.createFolder);
+  // const updateClock = useStoreActions((actions) => actions.updateClock);
+  // const deleteClock = useStoreActions((actions) => actions.deleteClock);
   // const [localClock, setLocalClock] = useState({ ...LOCAL_CLOCK_INIT });
   // const [clocks, setClocks] = useState([]);
   // const [folders, setFolders] = useState([]);
@@ -99,9 +99,9 @@ const HomePage = () => {
         />
       </div> */}
 
-      <div>
+      {/* <div>
         <FolderLists />
-      </div>
+      </div> */}
     </>
   );
 };

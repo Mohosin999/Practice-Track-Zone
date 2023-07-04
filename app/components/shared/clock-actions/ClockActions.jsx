@@ -1,18 +1,25 @@
 import React, { useEffect, useState, useRef } from "react";
 import PropTypes from "prop-types";
+import { useStoreState, useStoreActions } from "easy-peasy";
+
 import ClockForm from "../clock-form/ClockForm";
 import FolderForm from "../folder-form/FolderForm";
 
-const ClockActions = ({
-  local = false,
-  clock,
-  updateClock,
-  createClock,
-  deleteClock,
-  createFolder,
-}) => {
+const ClockActions = ({ local = false }) => {
   const [isEdit, setIsEdit] = useState(false);
   const [isCreate, setIsCreate] = useState(false);
+
+  // const localClock = useStoreState((state) => state.localClock);
+  // const clocks = useStoreState((state) => state.clocks);
+  // const folders = useStoreState((state) => state.folders);
+
+  // const updateLocalClock = useStoreActions(
+  //   (actions) => actions.localClock.update
+  // );
+  // const createClock = useStoreActions((actions) => actions.createClock);
+  // const createFolder = useStoreActions((actions) => actions.createFolder);
+  // let updateClock = useStoreActions((actions) => actions.updateClock);
+  const deleteClock = useStoreActions((actions) => actions.deleteClock);
 
   const editButtonRef = useRef(null);
   const createButtonRef = useRef(null);
@@ -68,7 +75,7 @@ const ClockActions = ({
           Create Folder
         </button>
       ) : (
-        <button onClick={() => deleteClock(clock.id)}>Delete Folder</button>
+        <button onClick={() => deleteClock()}>Delete Folder</button>
       )}
 
       {(isEdit || isCreate) && (
@@ -77,8 +84,7 @@ const ClockActions = ({
             <>
               <h3>Edit Clock Form</h3>
               <ClockForm
-                values={clock}
-                handleClock={updateClock}
+                // values={clock}
                 edit={true}
                 title={!local}
               />
@@ -95,7 +101,7 @@ const ClockActions = ({
           {isCreate && (
             <>
               <h3>Create New Folder</h3>
-              <FolderForm createFolder={createFolder} />
+              <FolderForm />
             </>
           )}
         </div>
@@ -104,14 +110,14 @@ const ClockActions = ({
   );
 };
 
-ClockActions.propTypes = {
-  local: PropTypes.bool,
-  clock: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    timezone: PropTypes.string.isRequired,
-    offset: PropTypes.number.isRequired,
-  }).isRequired,
-  updateClock: PropTypes.func.isRequired,
-};
+// ClockActions.propTypes = {
+//   local: PropTypes.bool,
+//   clock: PropTypes.shape({
+//     title: PropTypes.string.isRequired,
+//     timezone: PropTypes.string.isRequired,
+//     offset: PropTypes.number.isRequired,
+//   }).isRequired,
+//   updateClock: PropTypes.func.isRequired,
+// };
 
 export default ClockActions;

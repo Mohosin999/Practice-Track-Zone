@@ -1,26 +1,28 @@
 import React, { useEffect } from "react";
+import { useStoreState, useStoreActions } from "easy-peasy";
+
 import useClock from "@/app/hooks/use-clock/useClock";
 import useTimer from "@/app/hooks/use-timer/useTimer";
 import ClockDisplay from "../shared/clock-display/ClockDisplay";
 import ClockActions from "../shared/clock-actions/ClockActions";
 
-const LocalClock = ({
-  clock,
-  updateClock,
-  createClock,
-  deleteClock,
-  createFolder,
-}) => {
-  const { date, timezone, offset } = useClock(clock.timezone, clock.offset);
+const LocalClock = () => {
+  const localClock = useStoreState((state) => state.localClock);
+  const updateClock = useStoreActions((actions) => actions.updateClock);
+
+  const { date, timezone, offset } = useClock(
+    localClock?.timezone || "",
+    localClock?.offset || 0
+  );
   const timer = useTimer(date);
 
-  useEffect(() => {
-    updateClock({
-      date,
-      timezone,
-      offset,
-    });
-  }, [date]);
+  // useEffect(() => {
+  //   updateClock({
+  //     date,
+  //     timezone,
+  //     offset,
+  //   });
+  // }, [date]);
 
   return (
     <div>
@@ -29,17 +31,10 @@ const LocalClock = ({
           date={timer}
           offset={offset}
           timezone={timezone}
-          title={clock.title}
+          title={"Akahs Edit Kor"}
         />
       )}
-      <ClockActions
-        local={true}
-        clock={clock}
-        updateClock={updateClock}
-        createClock={createClock}
-        deleteClock={deleteClock}
-        createFolder={createFolder}
-      />
+      <ClockActions local={true} />
     </div>
   );
 };
