@@ -7,8 +7,10 @@ import ClockDisplay from "../shared/clock-display/ClockDisplay";
 import ClockActions from "../shared/clock-actions/ClockActions";
 
 const LocalClock = () => {
-  const localClock = useStoreState((state) => state.localClock);
-  const updateClock = useStoreActions((actions) => actions.updateClock);
+  const localClock = useStoreState((state) => state.clockModel.localClock);
+  const updateLocalClock = useStoreActions(
+    (actions) => actions.clockModel.updateLocalClock
+  );
 
   const { date, timezone, offset } = useClock(
     localClock?.timezone || "",
@@ -16,13 +18,13 @@ const LocalClock = () => {
   );
   const timer = useTimer(date);
 
-  // useEffect(() => {
-  //   updateClock({
-  //     date,
-  //     timezone,
-  //     offset,
-  //   });
-  // }, [date]);
+  useEffect(() => {
+    updateLocalClock({
+      date,
+      timezone,
+      offset,
+    });
+  }, [date]);
 
   return (
     <div>

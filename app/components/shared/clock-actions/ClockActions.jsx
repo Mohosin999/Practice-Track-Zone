@@ -19,7 +19,9 @@ const ClockActions = ({ local = false }) => {
   // const createClock = useStoreActions((actions) => actions.createClock);
   // const createFolder = useStoreActions((actions) => actions.createFolder);
   // let updateClock = useStoreActions((actions) => actions.updateClock);
-  const deleteClock = useStoreActions((actions) => actions.deleteClock);
+  const deleteClock = useStoreActions(
+    (actions) => actions.clockModel.deleteClock
+  );
 
   const editButtonRef = useRef(null);
   const createButtonRef = useRef(null);

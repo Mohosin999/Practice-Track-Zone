@@ -7,13 +7,20 @@ const clockModel = {
     timezone: "",
     offset: 0,
     date: null,
-    update: action((state, date) => {
-      state.date = { ...state.date, ...date };
-    }),
   },
 
   clocks: [],
   folders: [],
+
+  updateLocalClock: action((state, date) => {
+    state.localClock.date = { ...state.date, ...date };
+  }),
+
+  // updateLocalClock: action((state, { timezone, offset, date }) => {
+  //   state.localClock.timezone = timezone;
+  //   state.localClock.offset = offset;
+  //   state.localClock.date = date;
+  // }),
 
   // create new clock
   createClock: action((state, clock) => {

@@ -11,7 +11,9 @@ const ClockForm = ({
 }) => {
   const [formValues, setFormValues] = useState({ ...values });
 
-  const updateClock = useStoreActions((actions) => actions.updateClock);
+  const updateClock = useStoreActions(
+    (actions) => actions.clockModel.updateClock
+  );
 
   // useEffect to set offset according to timezone
   useEffect(() => {
