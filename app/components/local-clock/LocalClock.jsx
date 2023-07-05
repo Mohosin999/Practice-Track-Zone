@@ -33,7 +33,7 @@ const LocalClock = () => {
           date={timer}
           offset={offset}
           timezone={timezone}
-          title={"Akahs Edit Kor"}
+          title={localClock.title}
         />
       )}
       <ClockActions local={true} />

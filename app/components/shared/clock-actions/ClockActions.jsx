@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import PropTypes from "prop-types";
-import { useStoreState, useStoreActions } from "easy-peasy";
+import { useStoreActions } from "easy-peasy";
 
 import ClockForm from "../clock-form/ClockForm";
 import FolderForm from "../folder-form/FolderForm";
@@ -9,16 +8,6 @@ const ClockActions = ({ local = false }) => {
   const [isEdit, setIsEdit] = useState(false);
   const [isCreate, setIsCreate] = useState(false);
 
-  // const localClock = useStoreState((state) => state.localClock);
-  // const clocks = useStoreState((state) => state.clocks);
-  // const folders = useStoreState((state) => state.folders);
-
-  // const updateLocalClock = useStoreActions(
-  //   (actions) => actions.localClock.update
-  // );
-  // const createClock = useStoreActions((actions) => actions.createClock);
-  // const createFolder = useStoreActions((actions) => actions.createFolder);
-  // let updateClock = useStoreActions((actions) => actions.updateClock);
   const deleteClock = useStoreActions(
     (actions) => actions.clockModel.deleteClock
   );
@@ -26,10 +15,6 @@ const ClockActions = ({ local = false }) => {
   const editButtonRef = useRef(null);
   const createButtonRef = useRef(null);
   const formRef = useRef(null);
-
-  // const handleClock = (values) => {
-  //   createClock(values);
-  // };
 
   const openEditForm = () => {
     setIsEdit(!isEdit);
@@ -93,13 +78,6 @@ const ClockActions = ({ local = false }) => {
             </>
           )}
 
-          {/* {isCreate && (
-            <>
-              <h3>Create New Folder</h3>
-              <ClockForm handleClock={handleClock} />
-            </>
-          )} */}
-
           {isCreate && (
             <>
               <h3>Create New Folder</h3>
@@ -111,15 +89,5 @@ const ClockActions = ({ local = false }) => {
     </div>
   );
 };
-
-// ClockActions.propTypes = {
-//   local: PropTypes.bool,
-//   clock: PropTypes.shape({
-//     title: PropTypes.string.isRequired,
-//     timezone: PropTypes.string.isRequired,
-//     offset: PropTypes.number.isRequired,
-//   }).isRequired,
-//   updateClock: PropTypes.func.isRequired,
-// };
 
 export default ClockActions;

@@ -1,9 +1,14 @@
 import React, { useState } from "react";
+import { useStoreActions } from "easy-peasy";
 
-const FolderForm = ({ createFolder }) => {
+const FolderForm = () => {
   const [folderName, setFolderName] = useState("");
   const [password, setPassword] = useState("");
   const [step, setStep] = useState(1);
+
+  const createFolder = useStoreActions(
+    (actions) => actions.clockModel.createFolder
+  );
 
   // This function is for step management
   const handleNextStep = () => {

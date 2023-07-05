@@ -2,6 +2,10 @@ import { action } from "easy-peasy";
 import { generate } from "shortid";
 
 const clockModel = {
+  /*=============================================
+  =      Local Clock Functionality - Start      =
+  =============================================*/
+
   localClock: {
     title: "Track Zone Application",
     timezone: "",
@@ -12,36 +16,41 @@ const clockModel = {
   clocks: [],
   folders: [],
 
-  updateLocalClock: action((state, date) => {
-    state.localClock.date = { ...state.date, ...date };
+  setFolders: action((state, payload) => {
+    state.folders = payload;
   }),
 
-  // updateLocalClock: action((state, { timezone, offset, date }) => {
-  //   state.localClock.timezone = timezone;
-  //   state.localClock.offset = offset;
-  //   state.localClock.date = date;
-  // }),
+  // Update local clock
+  updateLocalClock: action((state, { timezone, offset, date }) => {
+    state.localClock.timezone = timezone;
+    state.localClock.offset = offset;
+    state.localClock.date = date;
+  }),
 
-  // create new clock
+  /*=============================================
+  =      Local Clock Functionality - End        =
+  =============================================*/
+
+  // Create new clock
   createClock: action((state, clock) => {
     clock.id = generate();
     state.clocks.push(clock);
   }),
 
-  // create new folder
+  // Create new folder
   createFolder: action((state, folder) => {
     folder.id = generate();
     state.folders.push(folder);
   }),
 
-  // update existing clock
+  // Update existing clock
   updateClock: action((state, updatedClock) => {
     state.clocks = state.clocks.map((clock) =>
       clock.id === updatedClock.id ? updatedClock : clock
     );
   }),
 
-  // delete clock
+  // Delete clock
   deleteClock: action((state, id) => {
     state.clocks = state.clocks.filter((clock) => clock.id !== id);
   }),
