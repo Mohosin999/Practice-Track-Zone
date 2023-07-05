@@ -1,13 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import FolderDisplay from "../shared/folder-display/FolderDisplay";
+import { useStoreActions, useStoreState } from "easy-peasy";
 
-const FolderLists = ({
-  folders,
-  clocks,
-  updateClock,
-  deleteClock,
-  localClock,
-}) => {
+const FolderLists = ({ clocks, updateClock, deleteClock, localClock }) => {
+  const folders = useStoreState((state) => state.clockModel.folders);
+  const setFolders = useStoreActions(
+    (actions) => actions.clockModel.setFolders
+  );
+
+  // Save created folder in local storage
+  useEffect(() => {
+    localStorage.setItem("folders", JSON.stringify(folders));
+  }, [folders]);
+
+  // Get created folder from local storage
+  useEffect(() => {
+    const storedFolders = localStorage.getItem("folders");
+    if (storedFolders) {
+      setFolders(JSON.parse(storedFolders));
+    }
+  }, []);
+
   return (
     <div>
       <h3>All Folder Lists</h3>
