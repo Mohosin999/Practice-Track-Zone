@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useStoreActions } from "easy-peasy";
-
 import ClockForm from "../clock-form/ClockForm";
 import FolderForm from "../folder-form/FolderForm";
 
