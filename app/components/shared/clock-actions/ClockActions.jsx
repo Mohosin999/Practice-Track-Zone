@@ -3,9 +3,16 @@ import { useStoreActions } from "easy-peasy";
 import ClockForm from "../clock-form/ClockForm";
 import FolderForm from "../folder-form/FolderForm";
 
-const ClockActions = ({ local = false }) => {
+const ClockActions = ({ local = false, folderButtons = false }) => {
   const [isEdit, setIsEdit] = useState(false);
   const [isCreate, setIsCreate] = useState(false);
+  const [isCreateClock, setIsCreateClock] = useState(false);
+  const [isClearAll, setIsClearAll] = useState(false);
+  console.log(isCreateClock);
+
+  const updateClock = useStoreActions(
+    (actions) => actions.clockModel.updateClock
+  );
 
   const deleteClock = useStoreActions(
     (actions) => actions.clockModel.deleteClock
@@ -23,6 +30,10 @@ const ClockActions = ({ local = false }) => {
   const openCreateForm = () => {
     setIsEdit(false);
     setIsCreate(!isCreate);
+  };
+
+  const openCreateClock = () => {
+    setIsCreateClock(!isCreateClock);
   };
 
   useEffect(() => {
@@ -49,7 +60,7 @@ const ClockActions = ({ local = false }) => {
 
   return (
     <div>
-      <button onClick={openEditForm} ref={editButtonRef}>
+      {/* <button onClick={openEditForm} ref={editButtonRef}>
         Edit Clock
       </button>
       {local ? (
@@ -62,6 +73,30 @@ const ClockActions = ({ local = false }) => {
         </button>
       ) : (
         <button onClick={() => deleteClock()}>Delete Folder</button>
+      )} */}
+
+      {folderButtons === true ? (
+        <div>
+          <button style={{ marginRight: "0.5rem" }}>Clear All Clocks</button>
+          <button onClick={openCreateClock}>Create New Clock</button>
+        </div>
+      ) : (
+        <div>
+          <button onClick={openEditForm} ref={editButtonRef}>
+            Edit Clock
+          </button>
+          {local ? (
+            <button
+              style={{ marginLeft: "0.5rem" }}
+              onClick={openCreateForm}
+              ref={createButtonRef}
+            >
+              Create Folder
+            </button>
+          ) : (
+            <button onClick={() => deleteClock()}>Delete Folder</button>
+          )}
+        </div>
       )}
 
       {(isEdit || isCreate) && (
@@ -85,6 +120,8 @@ const ClockActions = ({ local = false }) => {
           )}
         </div>
       )}
+
+      {isCreateClock && <ClockForm />}
     </div>
   );
 };

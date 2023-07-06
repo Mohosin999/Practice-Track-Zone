@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import ClockLists from "@/app/components/clock-list";
+import ClockActions from "@/app/components/shared/clock-actions/ClockActions";
 
 // import ClockForm from "@/app/components/shared/clock-form/ClockForm";
 
@@ -43,9 +44,10 @@ const FolderPage = () => {
         in your component file.
       </p>
 
-      <button onClick={handleCreateClock}>Create New Clock</button>
+      {/* {isCreate && <ClockLists />} */}
 
-      {isCreate && <ClockLists />}
+      <ClockLists />
+      <ClockActions folderButtons={true} />
 
       <button onClick={() => router.back()}>Go Back</button>
     </div>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useStoreActions } from "easy-peasy";
+import { action, useStoreActions } from "easy-peasy";
 import { getOffset } from "@/app/utils/timezone";
 import { TIMEZONE_OFFSET } from "@/app/constants/timezone";
 
@@ -13,6 +13,10 @@ const ClockForm = ({
 
   const updateLocalClock = useStoreActions(
     (actions) => actions.clockModel.updateLocalClock
+  );
+
+  const createClock = useStoreActions(
+    (actions) => actions.clockModel.createClock
   );
 
   // useEffect to set offset according to timezone
@@ -78,6 +82,7 @@ const ClockForm = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     updateLocalClock(formValues);
+    // createClock(formValues);
   };
 
   return (

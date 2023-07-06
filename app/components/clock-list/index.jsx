@@ -1,7 +1,10 @@
 import React from "react";
 import ClockListItem from "./ClockListItem";
+import { useStoreState } from "easy-peasy";
 
-const ClockLists = ({ clocks, updateClock, deleteClock, localClock }) => {
+const ClockLists = () => {
+  const clocks = useStoreState((state) => state.clockModel.clocks);
+
   return (
     <div>
       <h3>Other Clocks</h3>
@@ -11,13 +14,7 @@ const ClockLists = ({ clocks, updateClock, deleteClock, localClock }) => {
       ) : (
         <div>
           {clocks.map((clock) => (
-            <ClockListItem
-              key={clock.id}
-              clock={clock}
-              updateClock={updateClock}
-              deleteClock={deleteClock}
-              localClock={localClock}
-            />
+            <ClockListItem key={clock.id} clock={clock} />
           ))}
         </div>
       )}
