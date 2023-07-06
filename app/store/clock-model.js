@@ -41,6 +41,7 @@ const clockModel = {
   createFolder: action((state, folder) => {
     folder.id = generate();
     state.folders.push(folder);
+    localStorage.setItem("folders", JSON.stringify(state.folders));
   }),
 
   // Update existing clock
