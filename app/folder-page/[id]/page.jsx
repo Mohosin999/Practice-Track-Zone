@@ -46,8 +46,8 @@ const FolderPage = () => {
 
       {/* {isCreate && <ClockLists />} */}
 
-      <ClockLists />
       <ClockActions folderButtons={true} />
+      <ClockLists />
 
       <button onClick={() => router.back()}>Go Back</button>
     </div>
