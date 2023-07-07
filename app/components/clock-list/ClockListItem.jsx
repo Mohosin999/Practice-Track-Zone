@@ -36,7 +36,7 @@ const ClockListItem = ({ clock }) => {
         updateClock={updateClock}
         deleteClock={deleteClock}
       />
-      <h3>Time Difference : {formatDistance(localClock, date)}</h3>
+      {/* <h3>Time Difference : {formatDistance(localClock, date)}</h3> */}
     </div>
   );
 };
