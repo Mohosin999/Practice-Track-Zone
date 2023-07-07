@@ -13,13 +13,6 @@ const clockModel = {
     date: null,
   },
 
-  clocks: [],
-  folders: [],
-
-  setFolders: action((state, payload) => {
-    state.folders = payload;
-  }),
-
   // Update local clock
   updateLocalClock: action((state, { timezone, offset, date }) => {
     state.localClock.timezone = timezone;
@@ -30,6 +23,13 @@ const clockModel = {
   /*=============================================
   =      Local Clock Functionality - End        =
   =============================================*/
+
+  clocks: [],
+  folders: [],
+
+  setFolders: action((state, payload) => {
+    state.folders = payload;
+  }),
 
   // Create new clock
   createClock: action((state, clock) => {
