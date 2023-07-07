@@ -4,6 +4,8 @@ import { useStoreState } from "easy-peasy";
 
 const ClockLists = () => {
   const clocks = useStoreState((state) => state.clockModel.clocks);
+  console.log("Clocks ->> ", clocks);
+  console.log("Clocks Length ->> ", clocks.length);
 
   return (
     <div>
