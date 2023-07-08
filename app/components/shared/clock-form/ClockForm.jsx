@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useStoreActions } from "easy-peasy";
 import { getOffset } from "@/app/utils/timezone";
 import { TIMEZONE_OFFSET } from "@/app/constants/timezone";
 
@@ -43,6 +42,7 @@ const ClockForm = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     handleClock(formValues);
+    console.log(handleClock(formValues));
   };
 
   // This function is used to control the form by pressing the keyboard
@@ -139,7 +139,8 @@ const ClockForm = ({
           </select>
         </div>
       )}
-      <button>{edit ? "Update" : "Create"}</button>
+      {/* <button>{edit ? "Update" : "Create"}</button> */}
+      <button>Update Akahs</button>
     </form>
   );
 };
