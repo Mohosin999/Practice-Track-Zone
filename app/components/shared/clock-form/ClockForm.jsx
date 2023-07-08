@@ -5,34 +5,12 @@ import { TIMEZONE_OFFSET } from "@/app/constants/timezone";
 
 const ClockForm = ({
   values = { title: "", timezone: "UTC", offset: 0 },
+  handleClock,
   title = true,
   edit = false,
-  local,
   ref,
 }) => {
   const [formValues, setFormValues] = useState({ ...values });
-
-  /** ===================================================
-   *     All state and actions from easy-peasy - start
-   ===================================================== */
-  const updateLocalClock = useStoreActions(
-    (actions) => actions.clockModel.updateLocalClock
-  );
-
-  const createClock = useStoreActions(
-    (actions) => actions.clockModel.createClock
-  );
-
-  // const updateClock = useStoreActions(
-  //   (actions) => actions.clockModel.updateClock
-  // );
-
-  // const deleteClock = useStoreActions(
-  //   (actions) => actions.clockModel.deleteClock
-  // );
-  /** ===================================================
-    *     All state and actions from easy-peasy - end
-    ===================================================== */
 
   // useEffect to set offset according to timezone
   useEffect(() => {
@@ -64,11 +42,7 @@ const ClockForm = ({
   // Handle submit function
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // {local === true ? updateLocalClock(formValues) : createClock(formValues)}
-
-    // updateLocalClock(formValues);
-    createClock(formValues);
+    handleClock(formValues);
   };
 
   // This function is used to control the form by pressing the keyboard
