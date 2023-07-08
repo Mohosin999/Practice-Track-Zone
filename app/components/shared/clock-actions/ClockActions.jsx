@@ -14,12 +14,20 @@ const ClockActions = ({ local = false, folderButtons = false }) => {
    ===================================================== */
   const clocks = useStoreState((state) => state.clockModel.clocks);
 
+  const updateLocalClock = useStoreActions(
+    (actions) => actions.clockModel.updateLocalClock
+  );
+
   const updateClock = useStoreActions(
     (actions) => actions.clockModel.updateClock
   );
 
   const deleteClock = useStoreActions(
     (actions) => actions.clockModel.deleteClock
+  );
+
+  const createClock = useStoreActions(
+    (actions) => actions.clockModel.createClock
   );
   /** ===================================================
    *     All state and actions from easy-peasy - end
@@ -67,21 +75,6 @@ const ClockActions = ({ local = false, folderButtons = false }) => {
 
   return (
     <div>
-      {/* <button onClick={openEditForm} ref={editButtonRef}>
-        Edit Clock
-      </button>
-      {local ? (
-        <button
-          style={{ marginLeft: "0.5rem" }}
-          onClick={openCreateForm}
-          ref={createButtonRef}
-        >
-          Create Folder
-        </button>
-      ) : (
-        <button onClick={() => deleteClock()}>Delete Folder</button>
-      )} */}
-
       {/* ===================================================
                   Buttons showing logic here - start 
        ==================================================== */}
@@ -119,14 +112,19 @@ const ClockActions = ({ local = false, folderButtons = false }) => {
           {isEdit && (
             <>
               <h3>Edit Clock Form</h3>
-              <ClockForm edit={true} title={!local} local={local} />
+              <ClockForm
+                edit={true}
+                title={!local}
+                local={local}
+                handleClock={updateLocalClock}
+              />
             </>
           )}
 
           {isCreate && (
             <>
               <h3>Create New Folder</h3>
-              <FolderForm />
+              <FolderForm handleClock={updateClock} />
             </>
           )}
         </div>
