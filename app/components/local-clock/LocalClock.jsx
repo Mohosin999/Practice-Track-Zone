@@ -8,6 +8,7 @@ import ClockActions from "../shared/clock-actions/ClockActions";
 
 const LocalClock = () => {
   const localClock = useStoreState((state) => state.clockModel.localClock);
+
   const updateLocalClock = useStoreActions(
     (actions) => actions.clockModel.updateLocalClock
   );
@@ -36,7 +37,7 @@ const LocalClock = () => {
           title={localClock.title}
         />
       )}
-      <ClockActions local={true} />
+      <ClockActions updateClock={updateLocalClock} local={true} />
     </div>
   );
 };

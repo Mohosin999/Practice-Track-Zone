@@ -3,7 +3,13 @@ import { useStoreActions, useStoreState } from "easy-peasy";
 import ClockForm from "../clock-form/ClockForm";
 import FolderForm from "../folder-form/FolderForm";
 
-const ClockActions = ({ local = false, folderButtons = false }) => {
+const ClockActions = ({
+  updateClock,
+  deleteClock,
+  clock,
+  local = false,
+  folderButtons = false,
+}) => {
   const [isEdit, setIsEdit] = useState(false);
   const [isCreate, setIsCreate] = useState(false);
   const [isCreateClock, setIsCreateClock] = useState(false);
@@ -13,18 +19,6 @@ const ClockActions = ({ local = false, folderButtons = false }) => {
    *     All state and actions from easy-peasy - start
    ===================================================== */
   const clocks = useStoreState((state) => state.clockModel.clocks);
-
-  const updateLocalClock = useStoreActions(
-    (actions) => actions.clockModel.updateLocalClock
-  );
-
-  const updateClock = useStoreActions(
-    (actions) => actions.clockModel.updateClock
-  );
-
-  const deleteClock = useStoreActions(
-    (actions) => actions.clockModel.deleteClock
-  );
 
   const createClock = useStoreActions(
     (actions) => actions.clockModel.createClock
@@ -40,6 +34,7 @@ const ClockActions = ({ local = false, folderButtons = false }) => {
   const openEditForm = () => {
     setIsEdit(!isEdit);
     setIsCreate(false);
+    // updateClock(clock);
   };
 
   const openCreateForm = () => {
@@ -99,7 +94,7 @@ const ClockActions = ({ local = false, folderButtons = false }) => {
               Create Folder
             </button>
           ) : (
-            <button onClick={() => deleteClock()}>Delete Folder</button>
+            <button onClick={() => deleteClock(clock.id)}>Delete Folder</button>
           )}
         </div>
       )}
@@ -115,8 +110,8 @@ const ClockActions = ({ local = false, folderButtons = false }) => {
               <ClockForm
                 edit={true}
                 title={!local}
-                local={local}
-                handleClock={updateLocalClock}
+                handleClock={updateClock}
+                values={clock}
               />
             </>
           )}
@@ -124,14 +119,14 @@ const ClockActions = ({ local = false, folderButtons = false }) => {
           {isCreate && (
             <>
               <h3>Create New Folder</h3>
-              <FolderForm handleClock={updateClock} />
+              <FolderForm />
             </>
           )}
         </div>
       )}
 
       {/* If isCreateClock is true, then show the form of clock */}
-      {isCreateClock && <ClockForm />}
+      {isCreateClock && <ClockForm handleClock={createClock} />}
     </div>
   );
 };
