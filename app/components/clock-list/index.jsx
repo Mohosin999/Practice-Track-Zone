@@ -4,6 +4,7 @@ import { useStoreActions, useStoreState } from "easy-peasy";
 
 const ClockLists = () => {
   const clocks = useStoreState((state) => state.clockModel.clocks);
+  console.log("created all clocks -->> ", clocks);
 
   const updateClock = useStoreActions(
     (actions) => actions.clockModel.updateClock

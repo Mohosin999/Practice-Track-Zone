@@ -139,8 +139,7 @@ const ClockForm = ({
           </select>
         </div>
       )}
-      {/* <button>{edit ? "Update" : "Create"}</button> */}
-      <button>Update Akahs</button>
+      <button>{edit ? "Update" : "Create"}</button>
     </form>
   );
 };
