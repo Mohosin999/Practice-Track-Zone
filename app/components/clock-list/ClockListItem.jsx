@@ -7,21 +7,11 @@ import useTimer from "@/app/hooks/use-timer/useTimer";
 import ClockActions from "../shared/clock-actions/ClockActions";
 import ClockDisplay from "../shared/clock-display/ClockDisplay";
 
-const ClockListItem = ({ clock }) => {
+const ClockListItem = ({ clock, updateClock }) => {
   const { date } = useClock(clock.timezone, clock.offset);
   const timer = useTimer(date);
 
   if (!date || !timer) return null;
-
-  const localClock = useStoreActions(
-    (actions) => actions.clockModel.localClock
-  );
-  const updateClock = useStoreActions(
-    (actions) => actions.clockModel.updateClock
-  );
-  const deleteClock = useStoreActions(
-    (actions) => actions.clockModel.deleteClock
-  );
 
   return (
     <div>
@@ -34,7 +24,7 @@ const ClockListItem = ({ clock }) => {
       <ClockActions
         clock={clock}
         updateClock={updateClock}
-        deleteClock={deleteClock}
+        // deleteClock={deleteClock}
       />
       {/* <h3>Time Difference : {formatDistance(localClock, date)}</h3> */}
     </div>
@@ -42,3 +32,14 @@ const ClockListItem = ({ clock }) => {
 };
 
 export default ClockListItem;
+
+// const localClock = useStoreActions(
+//   (actions) => actions.clockModel.localClock
+// );
+// const updateClock = useStoreActions(
+//   (actions) => actions.clockModel.updateClock
+// );
+// // console.log(updateClock);
+// const deleteClock = useStoreActions(
+//   (actions) => actions.clockModel.deleteClock
+// );
