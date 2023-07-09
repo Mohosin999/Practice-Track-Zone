@@ -27,6 +27,10 @@ const clockModel = {
   clocks: [],
   folders: [],
 
+  setClocks: action((state, payload) => {
+    state.clocks = payload;
+  }),
+
   setFolders: action((state, payload) => {
     state.folders = payload;
   }),
@@ -35,6 +39,7 @@ const clockModel = {
   createClock: action((state, clock) => {
     clock.id = generate();
     state.clocks.push(clock);
+    localStorage.setItem("clocks", JSON.stringify(state.clocks));
   }),
 
   // Create new folder
@@ -54,6 +59,11 @@ const clockModel = {
   // Delete clock
   deleteClock: action((state, id) => {
     state.clocks = state.clocks.filter((clock) => clock.id !== id);
+  }),
+
+  // Clear all clocks
+  clearAllClocks: action((state) => {
+    state.clocks.length = 0;
   }),
 };
 
