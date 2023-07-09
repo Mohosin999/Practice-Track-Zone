@@ -2,17 +2,17 @@ import React, { useEffect } from "react";
 import ClockListItem from "./ClockListItem";
 import { useStoreState, useStoreActions } from "easy-peasy";
 
-const ClockLists = () => {
-  const clocks = useStoreState((state) => state.clockModel.clocks);
-  const setClocks = useStoreActions((actions) => actions.clockModel.setClocks);
+const ClockLists = ({ clocks }) => {
+  // const clocks = useStoreState((state) => state.clockModel.clocks);
+  // const setClocks = useStoreActions((actions) => actions.clockModel.setClocks);
 
-  // Get created clocks from local storage
-  useEffect(() => {
-    const storedClocks = localStorage.getItem("clocks");
-    if (storedClocks) {
-      setClocks(JSON.parse(storedClocks));
-    }
-  }, [setClocks]);
+  // // Get created clocks from local storage
+  // useEffect(() => {
+  //   const storedClocks = localStorage.getItem("clocks");
+  //   if (storedClocks) {
+  //     setClocks(JSON.parse(storedClocks));
+  //   }
+  // }, [setClocks]);
 
   return (
     <div>
