@@ -24,6 +24,10 @@ const ClockActions = ({ clock, local = false, folderButtons = false }) => {
   const deleteClock = useStoreActions(
     (actions) => actions.clockModel.deleteClock
   );
+
+  const clearAllClocks = useStoreActions(
+    (actions) => actions.clockModel.clearAllClocks
+  );
   /** ===================================================
    *     All state and actions from easy-peasy - end
    ===================================================== */
@@ -76,7 +80,9 @@ const ClockActions = ({ clock, local = false, folderButtons = false }) => {
       {folderButtons === true ? (
         <div>
           {clocks.length > 0 ? (
-            <button style={{ marginRight: "0.5rem" }}>Clear All Clocks</button>
+            <button onClick={clearAllClocks} style={{ marginRight: "0.5rem" }}>
+              Clear All Clocks
+            </button>
           ) : null}
           <button onClick={openCreateClock}>Create New Clock</button>
         </div>
