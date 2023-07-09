@@ -42,7 +42,6 @@ const ClockForm = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     handleClock(formValues);
-    console.log(handleClock(formValues));
   };
 
   // This function is used to control the form by pressing the keyboard

@@ -1,16 +1,10 @@
 import React from "react";
 import ClockListItem from "./ClockListItem";
-import { useStoreActions, useStoreState } from "easy-peasy";
+import { useStoreState } from "easy-peasy";
 
 const ClockLists = () => {
   const clocks = useStoreState((state) => state.clockModel.clocks);
   console.log("created all clocks -->> ", clocks);
-
-  const updateClock = useStoreActions(
-    (actions) => actions.clockModel.updateClock
-  );
-
-  console.log(clocks);
 
   return (
     <div>
@@ -21,12 +15,7 @@ const ClockLists = () => {
       ) : (
         <div>
           {clocks.map((clock) => (
-            <ClockListItem
-              key={clock.id}
-              clock={clock}
-              updateClock={updateClock}
-            />
-            // <ClockListItem key={clock.id} clock={clock} />
+            <ClockListItem key={clock.id} clock={clock} />
           ))}
         </div>
       )}

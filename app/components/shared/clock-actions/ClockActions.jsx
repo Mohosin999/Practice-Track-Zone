@@ -3,17 +3,10 @@ import { useStoreActions, useStoreState } from "easy-peasy";
 import ClockForm from "../clock-form/ClockForm";
 import FolderForm from "../folder-form/FolderForm";
 
-const ClockActions = ({
-  updateClock,
-  deleteClock,
-  clock,
-  local = false,
-  folderButtons = false,
-}) => {
+const ClockActions = ({ clock, local = false, folderButtons = false }) => {
   const [isEdit, setIsEdit] = useState(false);
   const [isCreate, setIsCreate] = useState(false);
-  const [isCreateClock, setIsCreateClock] = useState(false);
-  const [isClearAll, setIsClearAll] = useState();
+  const [showForm, setShowForm] = useState(false);
 
   /** ===================================================
    *     All state and actions from easy-peasy - start
@@ -22,6 +15,14 @@ const ClockActions = ({
 
   const createClock = useStoreActions(
     (actions) => actions.clockModel.createClock
+  );
+
+  const updateClock = useStoreActions(
+    (actions) => actions.clockModel.updateClock
+  );
+
+  const deleteClock = useStoreActions(
+    (actions) => actions.clockModel.deleteClock
   );
   /** ===================================================
    *     All state and actions from easy-peasy - end
@@ -34,7 +35,6 @@ const ClockActions = ({
   const openEditForm = () => {
     setIsEdit(!isEdit);
     setIsCreate(false);
-    // updateClock(clock);
   };
 
   const openCreateForm = () => {
@@ -43,7 +43,7 @@ const ClockActions = ({
   };
 
   const openCreateClock = () => {
-    setIsCreateClock(!isCreateClock);
+    setShowForm(!showForm);
   };
 
   useEffect(() => {
@@ -94,7 +94,7 @@ const ClockActions = ({
               Create Folder
             </button>
           ) : (
-            <button onClick={() => deleteClock(clock.id)}>Delete Folder</button>
+            <button onClick={() => deleteClock(clock.id)}>Delete</button>
           )}
         </div>
       )}
@@ -126,7 +126,7 @@ const ClockActions = ({
       )}
 
       {/* If isCreateClock is true, then show the form of clock */}
-      {isCreateClock && <ClockForm handleClock={createClock} />}
+      {showForm && <ClockForm handleClock={createClock} />}
     </div>
   );
 };
