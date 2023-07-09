@@ -1,10 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ClockListItem from "./ClockListItem";
-import { useStoreState } from "easy-peasy";
+import { useStoreState, useStoreActions } from "easy-peasy";
 
 const ClockLists = () => {
   const clocks = useStoreState((state) => state.clockModel.clocks);
-  console.log("created all clocks -->> ", clocks);
+  const setClocks = useStoreActions((actions) => actions.clockModel.setClocks);
+
+  // Get created clocks from local storage
+  useEffect(() => {
+    const storedClocks = localStorage.getItem("clocks");
+    if (storedClocks) {
+      setClocks(JSON.parse(storedClocks));
+    }
+  }, [setClocks]);
 
   return (
     <div>
