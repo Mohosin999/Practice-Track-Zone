@@ -7,8 +7,33 @@ import ClockActions from "@/app/components/shared/clock-actions/ClockActions";
 // import ClockForm from "@/app/components/shared/clock-form/ClockForm";
 
 const FolderPage = () => {
+  // const router = useRouter();
+  // const pathName = usePathname();
+
+  const [text, setText] = useState("");
+  const [textList, setTextList] = useState([]);
   const router = useRouter();
   const pathName = usePathname();
+
+  const [isCreate, setIsCreate] = useState(false);
+
+  useEffect(() => {
+    const savedTextList = localStorage.getItem(pathName);
+    if (savedTextList) {
+      setTextList(JSON.parse(savedTextList));
+    }
+  }, []);
+
+  const handleAddText = () => {
+    const updatedTextList = [...textList, text];
+    localStorage.setItem(pathName, JSON.stringify(updatedTextList));
+    setTextList(updatedTextList);
+    setText("");
+  };
+
+  const handleCreateClock = () => {
+    setIsCreate(!isCreate);
+  };
 
   return (
     <div>
