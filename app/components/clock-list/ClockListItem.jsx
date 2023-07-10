@@ -1,10 +1,10 @@
 import React from "react";
 import { formatDistance } from "date-fns";
-
 import useClock from "@/app/hooks/use-clock/useClock";
 import useTimer from "@/app/hooks/use-timer/useTimer";
 import ClockActions from "../shared/clock-actions/ClockActions";
 import ClockDisplay from "../shared/clock-display/ClockDisplay";
+import { useStoreActions, useStoreState } from "easy-peasy";
 
 const ClockListItem = ({ clock }) => {
   const { date } = useClock(clock.timezone, clock.offset);
@@ -12,6 +12,12 @@ const ClockListItem = ({ clock }) => {
 
   if (!date || !timer) return null;
 
+  const updateClock = useStoreActions(
+    (actions) => actions.clockModel.updateClock
+  );
+
+  // const localClock = useStoreState((state) => state.clockModel.localClock);
+  // console.log(localClock.date);
   return (
     <div>
       <ClockDisplay
@@ -20,21 +26,10 @@ const ClockListItem = ({ clock }) => {
         timezone={clock.timezone}
         title={clock.title}
       />
-      <ClockActions clock={clock} />
-      {/* <h3>Time Difference : {formatDistance(localClock, date)}</h3> */}
+      <ClockActions clock={clock} updateClock={updateClock} />
+      <h3>Time Difference : {formatDistance(localClock, date)}</h3>
     </div>
   );
 };
 
 export default ClockListItem;
-
-// const localClock = useStoreActions(
-//   (actions) => actions.clockModel.localClock
-// );
-// const updateClock = useStoreActions(
-//   (actions) => actions.clockModel.updateClock
-// );
-// // console.log(updateClock);
-// const deleteClock = useStoreActions(
-//   (actions) => actions.clockModel.deleteClock
-// );
