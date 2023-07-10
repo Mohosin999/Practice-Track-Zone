@@ -3,7 +3,12 @@ import { useStoreActions, useStoreState } from "easy-peasy";
 import ClockForm from "../clock-form/ClockForm";
 import FolderForm from "../folder-form/FolderForm";
 
-const ClockActions = ({ clock, local = false, folderButtons = false }) => {
+const ClockActions = ({
+  clock,
+  updateClock,
+  local = false,
+  folderButtons = false,
+}) => {
   const [isEdit, setIsEdit] = useState(false);
   const [isCreate, setIsCreate] = useState(false);
   const [showForm, setShowForm] = useState(false);
@@ -17,9 +22,9 @@ const ClockActions = ({ clock, local = false, folderButtons = false }) => {
     (actions) => actions.clockModel.createClock
   );
 
-  const updateClock = useStoreActions(
-    (actions) => actions.clockModel.updateClock
-  );
+  // const updateClock = useStoreActions(
+  //   (actions) => actions.clockModel.updateClock
+  // );
 
   const deleteClock = useStoreActions(
     (actions) => actions.clockModel.deleteClock
