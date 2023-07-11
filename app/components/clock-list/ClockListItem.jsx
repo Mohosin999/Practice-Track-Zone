@@ -7,17 +7,17 @@ import ClockDisplay from "../shared/clock-display/ClockDisplay";
 import { useStoreActions, useStoreState } from "easy-peasy";
 
 const ClockListItem = ({ clock }) => {
+  const updateClock = useStoreActions(
+    (actions) => actions.clockModel.updateClock
+  );
+
+  const localClock = useStoreState((state) => state.clockModel.localClock);
+
   const { date } = useClock(clock.timezone, clock.offset);
   const timer = useTimer(date);
 
   if (!date || !timer) return null;
 
-  const updateClock = useStoreActions(
-    (actions) => actions.clockModel.updateClock
-  );
-
-  // const localClock = useStoreState((state) => state.clockModel.localClock);
-  // console.log(localClock.date);
   return (
     <div>
       <ClockDisplay
@@ -27,7 +27,7 @@ const ClockListItem = ({ clock }) => {
         title={clock.title}
       />
       <ClockActions clock={clock} updateClock={updateClock} />
-      {/* <h3>Time Difference : {formatDistance(localClock, date)}</h3> */}
+      <h3>Time Difference : {formatDistance(localClock.date, date)}</h3>
     </div>
   );
 };
