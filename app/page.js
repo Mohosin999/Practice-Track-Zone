@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import LocalClock from "./components/local-clock/LocalClock";
-import FolderLists from "./components/folder-event/FolderLists";
+import FolderLists from "./components/folder-list/FolderLists";
 
 const HomePage = () => {
   return (
