@@ -27,7 +27,7 @@ const ClockListItem = ({ clock }) => {
         title={clock.title}
       />
       <ClockActions clock={clock} updateClock={updateClock} />
-      <h3>Time Difference : {formatDistance(localClock.date, date)}</h3>
+      {/* <h3>Time Difference : {formatDistance(localClock.date, date)}</h3> */}
     </div>
   );
 };
