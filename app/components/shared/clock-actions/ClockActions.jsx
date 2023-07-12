@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import { useRouter } from "next/navigation";
 import { useStoreActions, useStoreState } from "easy-peasy";
 import ClockForm from "../clock-form/ClockForm";
 import FolderForm from "../folder-form/FolderForm";
@@ -12,6 +13,8 @@ const ClockActions = ({
   const [isEdit, setIsEdit] = useState(false);
   const [isCreate, setIsCreate] = useState(false);
   const [showForm, setShowForm] = useState(false);
+
+  const router = useRouter();
 
   /** ===================================================
    *     All state and actions from easy-peasy - start
@@ -105,7 +108,22 @@ const ClockActions = ({
               Create Folder
             </button>
           ) : (
-            <button onClick={() => deleteClock(clock.id)}>Delete</button>
+            <button
+              onClick={() => deleteClock(clock.id)}
+              style={{ marginLeft: "0.5rem" }}
+            >
+              Delete
+            </button>
+          )}
+
+          {/* Add your event button */}
+          {local ? null : (
+            <button
+              onClick={() => router.push(`/event-page/${clock.id}`)}
+              style={{ marginLeft: "0.5rem" }}
+            >
+              Add Event
+            </button>
           )}
         </div>
       )}

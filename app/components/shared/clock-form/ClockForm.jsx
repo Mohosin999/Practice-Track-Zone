@@ -7,7 +7,6 @@ const ClockForm = ({
   handleClock,
   title = true,
   edit = false,
-  local = false,
   ref,
 }) => {
   const [formValues, setFormValues] = useState({ ...values });
