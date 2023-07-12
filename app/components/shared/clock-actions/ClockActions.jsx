@@ -121,6 +121,7 @@ const ClockActions = ({
               <ClockForm
                 edit={true}
                 title={!local}
+                // local={true}
                 handleClock={updateClock}
                 values={clock}
               />
@@ -131,6 +132,7 @@ const ClockActions = ({
             <>
               <h3>Create New Folder</h3>
               <FolderForm />
+              {/* <FolderForm local={false} /> */}
             </>
           )}
         </div>
