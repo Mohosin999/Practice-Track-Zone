@@ -1,20 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
-// import { styled } from "styled-components";
 
-// const FolderHeading = styled.h2`
-//   background-color: #efefef;
-//   cursor: pointer;
-// `;
-
-const FolderDisplay = ({
-  folderName,
-  id,
-  clocks,
-  updateClock,
-  deleteClock,
-  localClock,
-}) => {
+const FolderDisplay = ({ folderName, id }) => {
   const [isClicked, setIsClicked] = useState(false);
   const [selectedFolder, setSelectedFolder] = useState(null);
   const [password, setPassword] = useState("");
@@ -85,13 +72,6 @@ const FolderDisplay = ({
       }
     }
   };
-
-  // const handleClick = () => {
-  //   setIsClicked(true);
-  //   setTimeout(() => {
-  //     setIsClicked(false);
-  //   }, 20);
-  // };
 
   return (
     <div>

@@ -35,6 +35,7 @@ const FolderForm = () => {
           <h2>Enter Folder Name</h2>
           <input
             type="text"
+            title="Title cannot be changed later"
             placeholder="Folder Name"
             value={folderName}
             onChange={(e) => setFolderName(e.target.value)}
@@ -48,6 +49,7 @@ const FolderForm = () => {
           <h2>Enter Password</h2>
           <input
             type="password"
+            title="Password cannot be changed later"
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}

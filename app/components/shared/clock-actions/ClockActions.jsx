@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import { useStoreActions, useStoreState } from "easy-peasy";
 import ClockForm from "../clock-form/ClockForm";
 import FolderForm from "../folder-form/FolderForm";
@@ -10,11 +10,12 @@ const ClockActions = ({
   local = false,
   folderButtons = false,
 }) => {
+  const router = useRouter();
+  const params = useParams();
+
   const [isEdit, setIsEdit] = useState(false);
   const [isCreate, setIsCreate] = useState(false);
   const [showForm, setShowForm] = useState(false);
-
-  const router = useRouter();
 
   /** ===================================================
    *     All state and actions from easy-peasy - start
@@ -56,6 +57,11 @@ const ClockActions = ({
 
   const openCreateClock = () => {
     setShowForm(!showForm);
+  };
+
+  const handleDelete = () => {
+    deleteClock(clock.id);
+    localStorage.removeItem(clock.id);
   };
 
   useEffect(() => {
@@ -108,10 +114,7 @@ const ClockActions = ({
               Create Folder
             </button>
           ) : (
-            <button
-              onClick={() => deleteClock(clock.id)}
-              style={{ marginLeft: "0.5rem" }}
-            >
+            <button onClick={handleDelete} style={{ marginLeft: "0.5rem" }}>
               Delete
             </button>
           )}
@@ -150,7 +153,6 @@ const ClockActions = ({
             <>
               <h3>Create New Folder</h3>
               <FolderForm />
-              {/* <FolderForm local={false} /> */}
             </>
           )}
         </div>

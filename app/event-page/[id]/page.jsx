@@ -38,7 +38,7 @@ const EventPage = () => {
   };
 
   const handleEdit = () => {
-    setContent(savedContent.replace(/<br>/g, "\n")); // Replace <br> tags with newline characters
+    setContent(savedContent.replace(/<br>/g, "\n"));
     setIsEditing(true);
   };
 
@@ -61,6 +61,7 @@ const EventPage = () => {
           <textarea
             style={{
               border: "1px solid #ccc",
+              width: "100%",
               minHeight: "200px",
               padding: "10px",
             }}
