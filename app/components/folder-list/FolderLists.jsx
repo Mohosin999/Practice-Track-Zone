@@ -4,8 +4,13 @@ import { useStoreActions, useStoreState } from "easy-peasy";
 
 const FolderLists = ({ clocks, updateClock, deleteClock, localClock }) => {
   const folders = useStoreState((state) => state.clockModel.folders);
+
   const setFolders = useStoreActions(
     (actions) => actions.clockModel.setFolders
+  );
+
+  const deleteFolder = useStoreActions(
+    (actions) => actions.clockModel.deleteFolder
   );
 
   const itemsPerPage = 3; // Number of folders to show per page
@@ -81,6 +86,7 @@ const FolderLists = ({ clocks, updateClock, deleteClock, localClock }) => {
               key={folder.id}
               id={folder.id}
               folderName={folder.folderName}
+              deleteFolder={deleteFolder}
             />
           ))}
           <div>

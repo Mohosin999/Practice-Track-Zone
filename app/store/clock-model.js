@@ -42,8 +42,26 @@ const clockModel = {
     // localStorage.setItem("clocks", JSON.stringify(state.clocks));
   }),
 
-  // Create new folder
+  // // Create new folder
+  // createFolder: action((state, folder) => {
+  //   folder.id = generate();
+  //   state.folders.push(folder);
+  //   localStorage.setItem("folders", JSON.stringify(state.folders));
+  // }),
+
   createFolder: action((state, folder) => {
+    // Check if the password is already used
+    const isPasswordExists = state.folders.some(
+      (existingFolder) => existingFolder.password === folder.password
+    );
+
+    if (isPasswordExists) {
+      // Handle duplicate password case
+      // For example, show an error message or take appropriate action
+      alert("Password already exists");
+      return;
+    }
+
     folder.id = generate();
     state.folders.push(folder);
     localStorage.setItem("folders", JSON.stringify(state.folders));
@@ -59,6 +77,29 @@ const clockModel = {
   // Delete clock
   deleteClock: action((state, id) => {
     state.clocks = state.clocks.filter((clock) => clock.id !== id);
+  }),
+
+  // Delete folder
+  deleteFolder: action((state, id) => {
+    state.folders = state.folders.filter((folder) => folder.id !== id);
+    localStorage.setItem("folders", JSON.stringify(state.folders));
+  }),
+  deleteFolder: action((state, id) => {
+    // Find the folder to be deleted
+    const deletedFolder = state.folders.find((folder) => folder.id === id);
+
+    // Remove the folder from the state
+    state.folders = state.folders.filter((folder) => folder.id !== id);
+
+    // Delete the folder and its associated information from the local storage
+    const storedFolders = JSON.parse(localStorage.getItem("folders"));
+    const updatedFolders = storedFolders.filter((folder) => folder.id !== id);
+    localStorage.setItem("folders", JSON.stringify(updatedFolders));
+
+    // Delete the associated information from the local storage
+    localStorage.removeItem(deletedFolder.id);
+
+    // ... Any other cleanup or handling related to the associated information
   }),
 
   // Clear all clocks
