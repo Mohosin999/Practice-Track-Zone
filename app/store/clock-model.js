@@ -1,5 +1,6 @@
-import { action } from "easy-peasy";
+import { action, thunk } from "easy-peasy";
 import { generate } from "shortid";
+import eventModel from "./event-model";
 
 const clockModel = {
   /*=============================================
@@ -75,15 +76,21 @@ const clockModel = {
   }),
 
   // Delete clock
-  deleteClock: action((state, id) => {
-    state.clocks = state.clocks.filter((clock) => clock.id !== id);
+  deleteClock: thunk(async (actions, id, { getState }) => {
+    const state = getState();
+    const filteredClocks = state.clocks.filter((clock) => clock.id !== id);
+    actions.setClocks(filteredClocks);
+
+    // Trigger deleteContent thunk from eventModel
+    await eventModel.deleteContent(id);
   }),
 
   // Delete folder
-  deleteFolder: action((state, id) => {
-    state.folders = state.folders.filter((folder) => folder.id !== id);
-    localStorage.setItem("folders", JSON.stringify(state.folders));
-  }),
+  // deleteFolder: action((state, id) => {
+  //   state.folders = state.folders.filter((folder) => folder.id !== id);
+  //   localStorage.setItem("folders", JSON.stringify(state.folders));
+  // }),
+
   deleteFolder: action((state, id) => {
     // Find the folder to be deleted
     const deletedFolder = state.folders.find((folder) => folder.id === id);
